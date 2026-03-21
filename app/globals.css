@@ -1,3 +1,6 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,31 +9,27 @@
    A DOCURINHA - DESIGN SYSTEM
    ============================================ */
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap');
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Brand Colors - Inspired by existing site */
-  --color-plum: rgb(86, 37, 71);           /* Deep plum - primary text */
-  --color-soft-pink: #F5E6E8;              /* Soft pink - backgrounds */
-  --color-nude: #FAF0F0;                   /* Nude/light pink */
-  --color-gold: #D4AF37;                   /* Brushed gold - accents */
-  --color-warm-white: #FFFBF7;             /* Warm white */
-  --color-cream: #FFF8F0;                  /* Cream alternative */
+  /* Brand Colors - Inspired by DESIGN.md */
+  --color-plum: #452627;           /* Deep Cocoa - primary text */
+  --color-soft-pink: #FFF8F6;      /* Warm Cream - backgrounds */
+  --color-nude: #F5ECE9;           /* surface-container */
+  --color-gold: #735C00;           /* Gold Accent */
+  --color-warm-white: #FFFFFF;     /* surface-container-lowest */
+  --color-cream: #EFE6E3;          /* surface-container-high */
+  --color-dark-cocoa: #1A1212;       /* Dark anchor - hero, overlays */
 
   /* Semantic Colors */
   --color-primary: var(--color-plum);
   --color-accent: var(--color-gold);
   --color-background: var(--color-warm-white);
-  --color-surface: var(--color-nude);
+  --color-surface: var(--color-soft-pink);
 
   /* Typography */
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-noto);
+  --font-sans: var(--font-manrope);
 
   /* Spacing Scale */
   --space-xs: 0.5rem;
@@ -47,10 +46,10 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(86, 37, 71, 0.05);
-  --shadow-md: 0 4px 12px rgba(86, 37, 71, 0.1);
-  --shadow-lg: 0 8px 24px rgba(86, 37, 71, 0.15);
+  /* Shadows (Natural Ambient Occlusion) */
+  --shadow-sm: 0 4px 10px rgba(69, 38, 39, 0.04);
+  --shadow-md: 0 10px 30px rgba(69, 38, 39, 0.06);
+  --shadow-lg: 0 20px 50px rgba(69, 38, 39, 0.08);
 
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
@@ -265,6 +264,46 @@ a:hover {
 }
 
 /* ============================================
+   GLASS SYSTEM
+   ============================================ */
+
+@layer utilities {
+  .glass-card {
+    background: color-mix(in srgb, var(--color-soft-pink) 60%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 8px 32px rgba(69, 38, 39, 0.08);
+    border-radius: 1rem;
+  }
+
+  .glass-surface {
+    background: color-mix(in srgb, var(--color-soft-pink) 50%, transparent);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    box-shadow: 0 1px 12px rgba(69, 38, 39, 0.06);
+  }
+
+  .glass-pill {
+    background: color-mix(in srgb, var(--color-warm-white) 20%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 16px rgba(69, 38, 39, 0.06);
+    border-radius: 9999px;
+  }
+
+  .glass-overlay {
+    background: color-mix(in srgb, var(--color-dark-cocoa) 70%, transparent);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    color: var(--color-soft-pink);
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ============================================
    RESPONSIVE IMAGES
    ============================================ */
 
@@ -289,6 +328,13 @@ img {
 }
 
 @theme inline {
+  --color-plum: #452627;
+  --color-gold: #735C00;
+  --color-soft-pink: #FFF8F6;
+  --color-surface: #FFF8F6;
+  --color-nude: #F5ECE9;
+  --color-cream: #EFE6E3;
+  --color-dark-cocoa: #1A1212;
   --font-heading: var(--font-serif);
   --font-serif: var(--font-serif);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -372,7 +418,13 @@ img {
   body {
     @apply bg-background text-foreground;
   }
-  html {
-    @apply font-serif;
-  }
+}
+
+/* Custom Font Classes */
+.font-noto {
+  font-family: var(--font-noto);
+}
+
+.font-manrope {
+  font-family: var(--font-manrope);
 }
