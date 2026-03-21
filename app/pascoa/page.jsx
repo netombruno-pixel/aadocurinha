@@ -16,30 +16,40 @@ export default function PascoaPage() {
 
   return (
     <LanguageProvider>
-      {/* Fixed gradient background */}
-      <div
-        className="fixed inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(to bottom, #1A1212, #FFF8F6 35%, #F5ECE9 70%, #EFE6E3)",
-        }}
-      />
+      <div className="min-h-screen bg-nude">
+        {/* Language toggle (appears after hero scroll) */}
+        <LanguageToggle heroRef={heroRef} />
 
-      {/* Language toggle (appears after hero scroll) */}
-      <LanguageToggle heroRef={heroRef} />
+        {/* Page content */}
+        <main>
+          <HeroStatic ref={heroRef} />
 
-      {/* Page content */}
-      <main>
-        <HeroStatic ref={heroRef} />
-        <SectionOvosDeColher />
-        <SectionMiniOvos />
-        <SectionBarraChocolate />
-        <SectionKitConfeiteiro />
-        <FooterPascoa />
-      </main>
+          {/* Dark-to-light gradient transition below hero */}
+          <div
+            className="h-32 -mt-1"
+            style={{
+              background:
+                "linear-gradient(to bottom, #1A1212, #3D2526 30%, #745660 60%, #F5ECE9)",
+            }}
+          />
 
-      {/* Sticky WhatsApp CTA */}
-      <WhatsAppCTA heroRef={heroRef} />
+          {/* Menu sections on textured light background */}
+          <div className="bg-nude bg-grain">
+            <SectionOvosDeColher />
+            <SectionMiniOvos />
+          </div>
+          <div className="bg-soft-pink bg-grain">
+            <SectionBarraChocolate />
+            <SectionKitConfeiteiro />
+          </div>
+          <div className="bg-cream bg-grain">
+            <FooterPascoa />
+          </div>
+        </main>
+
+        {/* Sticky WhatsApp CTA */}
+        <WhatsAppCTA heroRef={heroRef} />
+      </div>
     </LanguageProvider>
   );
 }

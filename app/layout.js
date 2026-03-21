@@ -1,4 +1,17 @@
+import { Noto_Serif, Manrope } from "next/font/google";
 import "./globals.css";
+
+const noto = Noto_Serif({
+  subsets: ["latin"],
+  variable: "--font-noto",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+});
 
 export const metadata = {
   title: "A Docurinha | Handmade Brigadeiros & Naked Cakes | Windermere, FL",
@@ -13,11 +26,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${noto.variable} ${manrope.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </head>
-      <body>
+      <body className={manrope.className}>
         {children}
       </body>
     </html>

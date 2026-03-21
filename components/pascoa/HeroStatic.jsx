@@ -15,7 +15,7 @@ const HeroStatic = forwardRef(function HeroStatic(props, ref) {
       className="relative w-full h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden"
     >
       {/* Dark cocoa background */}
-      <div className="absolute inset-0 bg-[var(--color-dark-cocoa)]" />
+      <div className="absolute inset-0 bg-dark-cocoa" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6">
