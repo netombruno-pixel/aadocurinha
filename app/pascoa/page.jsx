@@ -151,13 +151,12 @@ function PascoaContent() {
         {/* Left spacer */}
         <div style={{ width: "120px" }} />
 
-        {/* Center brand */}
-        <h1
-          className="text-2xl font-semibold italic tracking-tight"
-          style={{ fontFamily: FONT_HEADLINE, color: C.primary, margin: 0 }}
-        >
-          A Docurinha
-        </h1>
+        {/* Center brand — logo */}
+        <img
+          src="/logo.png"
+          alt="A Docurinha"
+          style={{ height: "40px", width: "auto" }}
+        />
 
         {/* Right: language toggle */}
         <div className="flex items-center" style={{ gap: "0.25rem", width: "120px", justifyContent: "flex-end" }}>
@@ -455,12 +454,11 @@ function PascoaContent() {
         {/* FOOTER                                   */}
         {/* ======================================== */}
         <footer className="flex flex-col items-center text-center" style={{ padding: "3rem 0", gap: "1rem" }}>
-          <p
-            className="text-2xl font-semibold italic"
-            style={{ fontFamily: FONT_HEADLINE, color: C.primary, margin: 0 }}
-          >
-            A Docurinha
-          </p>
+          <img
+            src="/logo-text.png"
+            alt="A Docurinha"
+            style={{ height: "48px", width: "auto" }}
+          />
 
           <a
             href="https://www.instagram.com/aadocurinha"
