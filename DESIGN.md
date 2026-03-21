@@ -144,7 +144,7 @@ Four utility classes cover all glass use cases. Each is defined by its `backgrou
 *   **Use:** Content containers — product cards, info panels, feature blocks.
 *   **Background:** `color-mix(in srgb, var(--color-soft-pink) 60%, transparent)`
 *   **Backdrop filter:** `backdrop-blur(24px)`
-*   **Shadow:** Warm ambient shadow derived from Deep Cocoa at low opacity (e.g. `box-shadow: 0 8px 32px rgba(69, 38, 39, 0.10)`)
+*   **Shadow:** Warm ambient shadow derived from Deep Cocoa at low opacity (e.g. `box-shadow: 0 8px 32px rgba(69, 38, 39, 0.08)`)
 *   **Border:** None — shadow separation only (see No-Line Rule below).
 
 #### `glass-surface`

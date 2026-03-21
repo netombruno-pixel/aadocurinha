@@ -23,7 +23,12 @@ export default function WhatsAppCTA({ heroRef }) {
     return () => observer.disconnect();
   }, [heroRef]);
 
-  const whatsappUrl = "#";
+  // Phase 1: placeholder. Replace with real wa.me link in Phase 3.
+  const whatsappUrl = null;
+
+  const handleClick = (e) => {
+    if (!whatsappUrl) e.preventDefault();
+  };
 
   return (
     <motion.div
@@ -35,12 +40,18 @@ export default function WhatsAppCTA({ heroRef }) {
       }`}
     >
       <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="glass-pill flex items-center gap-2 px-6 py-3 text-plum font-manrope text-sm font-semibold tracking-wide hover:bg-white/30 transition-colors duration-300"
+        href={whatsappUrl || "#"}
+        onClick={handleClick}
+        target={whatsappUrl ? "_blank" : undefined}
+        rel={whatsappUrl ? "noopener noreferrer" : undefined}
+        aria-disabled={!whatsappUrl}
+        className={`glass-pill flex items-center gap-2 px-6 py-3 font-manrope text-sm font-semibold tracking-wide transition-colors duration-300 ${
+          whatsappUrl
+            ? "text-plum hover:bg-white/30"
+            : "text-plum/50 cursor-default"
+        }`}
       >
-        <WhatsappLogo size={20} weight="duotone" className="text-green-600" />
+        <WhatsappLogo size={20} weight="duotone" className={whatsappUrl ? "text-green-600" : "text-green-600/50"} />
         {t("cta")}
       </a>
     </motion.div>

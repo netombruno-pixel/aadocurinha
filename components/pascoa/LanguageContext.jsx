@@ -21,6 +21,7 @@ export function LanguageProvider({ children }) {
   const setLang = useCallback((newLang) => {
     if (!SUPPORTED_LANGS.includes(newLang)) return;
     setLangState(newLang);
+    document.documentElement.lang = newLang;
     const url = new URL(window.location);
     url.searchParams.set("lang", newLang);
     window.history.replaceState({}, "", url);
