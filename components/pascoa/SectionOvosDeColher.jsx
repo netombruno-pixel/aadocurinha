@@ -17,24 +17,40 @@ export default function SectionOvosDeColher() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-16 md:py-24 px-5 max-w-lg mx-auto">
+    <section
+      className="max-w-lg mx-auto"
+      style={{ padding: "4rem 1.25rem" }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true, margin: "-80px" }}
-        className="mb-10 flex items-center gap-4"
+        className="flex items-center"
+        style={{ marginBottom: "2.5rem", gap: "1rem" }}
       >
-        <Image src="/illustrations/spoon.svg" alt="" width={24} height={72} className="opacity-50" />
+        <Image
+          src="/illustrations/spoon.svg"
+          alt=""
+          width={24}
+          height={72}
+          className="opacity-50"
+        />
         <div>
-          <h2 className="font-noto text-3xl md:text-4xl font-semibold text-plum tracking-tight leading-none mb-1">
+          <h2 className="font-noto text-3xl md:text-4xl font-semibold text-plum tracking-tight leading-none">
             {t("section_ovos_colher")}
           </h2>
         </div>
       </motion.div>
-      <div className="flex flex-col gap-6">
+
+      <div className="flex flex-col" style={{ gap: "1.5rem" }}>
         {flavors.map((flavor, index) => (
-          <ProductCard key={flavor.nameKey} nameKey={flavor.nameKey} descKey={flavor.descKey} index={index} />
+          <ProductCard
+            key={flavor.nameKey}
+            nameKey={flavor.nameKey}
+            descKey={flavor.descKey}
+            index={index}
+          />
         ))}
       </div>
     </section>

@@ -12,19 +12,23 @@ const HeroStatic = forwardRef(function HeroStatic(props, ref) {
   return (
     <section
       ref={ref}
-      className="relative w-full h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden"
+      style={{ height: "100dvh" }}
     >
       {/* Dark cocoa background */}
       <div className="absolute inset-0 bg-dark-cocoa" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6">
+      <div
+        className="relative z-10 flex flex-col items-center text-center"
+        style={{ padding: "0 1.5rem" }}
+      >
         {/* Easter egg illustration */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="mb-8"
+          style={{ marginBottom: "2rem" }}
         >
           <Image
             src="/illustrations/easter-egg.svg"
@@ -41,8 +45,8 @@ const HeroStatic = forwardRef(function HeroStatic(props, ref) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="font-noto font-medium text-soft-pink tracking-tight leading-[0.9]"
-          style={{ fontSize: "clamp(3rem, 8vw, 5rem)" }}
+          className="font-noto font-medium text-soft-pink tracking-tight"
+          style={{ fontSize: "clamp(3rem, 8vw, 5rem)", lineHeight: 0.9 }}
         >
           {t("hero_title")}
         </motion.h1>
@@ -52,7 +56,8 @@ const HeroStatic = forwardRef(function HeroStatic(props, ref) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-          className="mt-4 text-lg md:text-xl font-manrope font-light tracking-wide text-soft-pink/70 max-w-sm"
+          className="text-lg md:text-xl font-manrope font-light tracking-wide text-soft-pink/70"
+          style={{ marginTop: "1rem", maxWidth: "24rem" }}
         >
           {t("hero_subtitle")}
         </motion.p>
@@ -62,7 +67,8 @@ const HeroStatic = forwardRef(function HeroStatic(props, ref) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.9 }}
-          className="mt-8 text-sm font-manrope font-light tracking-[0.2em] uppercase text-gold/60"
+          className="text-sm font-manrope font-light uppercase text-gold/60"
+          style={{ marginTop: "2rem", letterSpacing: "0.2em" }}
         >
           A Docurinha
         </motion.p>
@@ -73,7 +79,8 @@ const HeroStatic = forwardRef(function HeroStatic(props, ref) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
+        style={{ bottom: "2rem", gap: "0.5rem" }}
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

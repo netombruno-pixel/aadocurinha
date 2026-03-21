@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useLanguage } from "./LanguageContext";
 
 export default function LanguageToggle({ heroRef }) {
@@ -24,35 +24,53 @@ export default function LanguageToggle({ heroRef }) {
 
   return (
     <div
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
+      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
         visible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-4 pointer-events-none"
       }`}
+      style={{ top: "1rem" }}
     >
-      <div className="glass-surface rounded-full px-1 py-1">
-        <Tabs value={lang} onValueChange={setLang}>
-          <TabsList className="bg-transparent gap-0">
-            <TabsTrigger
-              value="pt"
-              className="rounded-full px-4 py-1.5 text-xs font-manrope font-semibold tracking-wider data-[state=active]:bg-white/30 data-[state=active]:text-plum text-plum/50"
-            >
-              {t("lang_pt")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="en"
-              className="rounded-full px-4 py-1.5 text-xs font-manrope font-semibold tracking-wider data-[state=active]:bg-white/30 data-[state=active]:text-plum text-plum/50"
-            >
-              {t("lang_en")}
-            </TabsTrigger>
-            <TabsTrigger
-              value="es"
-              className="rounded-full px-4 py-1.5 text-xs font-manrope font-semibold tracking-wider data-[state=active]:bg-white/30 data-[state=active]:text-plum text-plum/50"
-            >
-              {t("lang_es")}
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+      <div
+        className="glass-surface rounded-full"
+        style={{
+          padding: "0.25rem",
+          boxShadow: "0 4px 20px rgba(69, 38, 39, 0.12)",
+        }}
+      >
+        <ToggleGroup
+          type="single"
+          value={lang}
+          onValueChange={(value) => {
+            if (value) setLang(value);
+          }}
+          variant="outline"
+          size="sm"
+          className="rounded-full"
+          style={{ gap: "0.125rem" }}
+        >
+          <ToggleGroupItem
+            value="pt"
+            className="rounded-full text-xs font-manrope font-semibold tracking-wider text-plum/50 data-[state=on]:bg-white/40 data-[state=on]:text-plum"
+            style={{ padding: "0.25rem 1rem" }}
+          >
+            {t("lang_pt")}
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            value="en"
+            className="rounded-full text-xs font-manrope font-semibold tracking-wider text-plum/50 data-[state=on]:bg-white/40 data-[state=on]:text-plum"
+            style={{ padding: "0.25rem 1rem" }}
+          >
+            {t("lang_en")}
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            value="es"
+            className="rounded-full text-xs font-manrope font-semibold tracking-wider text-plum/50 data-[state=on]:bg-white/40 data-[state=on]:text-plum"
+            style={{ padding: "0.25rem 1rem" }}
+          >
+            {t("lang_es")}
+          </ToggleGroupItem>
+        </ToggleGroup>
       </div>
     </div>
   );

@@ -4,12 +4,51 @@ import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLanguage } from "./LanguageContext";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const bars = [
   { nameKey: "barra_1_name", descKey: "barra_1_desc" },
   { nameKey: "barra_2_name", descKey: "barra_2_desc" },
   { nameKey: "barra_3_name", descKey: "barra_3_desc" },
 ];
+
+function BarCard({ bar, t }) {
+  return (
+    <Card
+      className="bg-white/85 backdrop-blur-xl border-0 ring-0 shadow-[0_2px_8px_rgba(69,38,39,0.08),0_12px_40px_rgba(69,38,39,0.12)] flex flex-col"
+      style={{ padding: "1rem", gap: "0.75rem" }}
+    >
+      <CardContent
+        className="bg-cream rounded-xl overflow-hidden flex items-center justify-center"
+        style={{ padding: 0 }}
+      >
+        <div className="aspect-[3/5] w-full flex items-center justify-center">
+          <span className="text-plum/20 font-manrope text-sm">foto</span>
+        </div>
+      </CardContent>
+      <CardContent style={{ padding: 0 }}>
+        <h3 className="font-noto text-lg font-medium text-plum leading-tight">
+          {t(bar.nameKey)}
+        </h3>
+      </CardContent>
+      <CardContent style={{ padding: 0 }}>
+        <p className="font-manrope text-sm font-light text-plum/60 leading-relaxed">
+          {t(bar.descKey)}
+        </p>
+      </CardContent>
+      <CardContent style={{ padding: 0, marginTop: "auto" }}>
+        <Badge
+          variant="secondary"
+          className="bg-white/75 backdrop-blur-md text-plum/70 font-manrope font-semibold tracking-wide border-0 shadow-[0_2px_8px_rgba(69,38,39,0.08)] rounded-full"
+          style={{ padding: "0.375rem 1rem", height: "auto", fontSize: "0.75rem" }}
+        >
+          {t("price_placeholder")}
+        </Badge>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function SectionBarraChocolate() {
   const { t } = useLanguage();
@@ -41,15 +80,25 @@ export default function SectionBarraChocolate() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 px-5 max-w-lg mx-auto md:max-w-3xl">
+    <section
+      className="max-w-lg mx-auto md:max-w-3xl"
+      style={{ padding: "4rem 1.25rem" }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true, margin: "-80px" }}
-        className="mb-10 flex items-center gap-4"
+        className="flex items-center"
+        style={{ marginBottom: "2.5rem", gap: "1rem" }}
       >
-        <Image src="/illustrations/chocolate-bar.svg" alt="" width={32} height={64} className="opacity-50" />
+        <Image
+          src="/illustrations/chocolate-bar.svg"
+          alt=""
+          width={32}
+          height={64}
+          className="opacity-50"
+        />
         <h2 className="font-noto text-3xl md:text-4xl font-semibold text-plum tracking-tight leading-none">
           {t("section_barra")}
         </h2>
@@ -61,52 +110,54 @@ export default function SectionBarraChocolate() {
         transition={{ duration: 0.7, ease: "easeOut" }}
         viewport={{ once: true, margin: "-50px" }}
       >
+        {/* Mobile: horizontal scroll carousel */}
         <div
           ref={scrollRef}
-          className="md:hidden flex gap-4 overflow-x-scroll snap-x snap-mandatory scrollbar-hide pb-4 -mx-5 px-5"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="md:hidden flex overflow-x-scroll snap-x snap-mandatory scrollbar-hide"
+          style={{
+            gap: "1rem",
+            paddingBottom: "1rem",
+            margin: "0 -1.25rem",
+            padding: "0 1.25rem 1rem",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
         >
           {bars.map((bar, index) => (
             <div
               key={bar.nameKey}
               ref={(el) => (cardRefs.current[index] = el)}
-              className="glass-card p-4 flex flex-col gap-3 snap-center min-w-[75vw] max-w-[75vw] shrink-0"
+              className="snap-center shrink-0"
+              style={{ minWidth: "75vw", maxWidth: "75vw" }}
             >
-              <div className="aspect-[3/5] w-full rounded-xl bg-cream flex items-center justify-center">
-                <span className="text-plum/20 font-manrope text-sm">foto</span>
-              </div>
-              <h3 className="font-noto text-lg font-medium text-plum leading-tight">{t(bar.nameKey)}</h3>
-              <p className="font-manrope text-sm font-light text-plum/60 leading-relaxed">{t(bar.descKey)}</p>
-              <span className="glass-pill inline-block w-fit px-4 py-1.5 text-xs font-manrope font-semibold text-plum/70 tracking-wide mt-auto">
-                {t("price_placeholder")}
-              </span>
+              <BarCard bar={bar} t={t} />
             </div>
           ))}
         </div>
 
-        <div className="md:hidden flex justify-center gap-2 mt-4">
+        {/* Dot indicators (mobile only) */}
+        <div
+          className="md:hidden flex justify-center"
+          style={{ gap: "0.5rem", marginTop: "1rem" }}
+        >
           {bars.map((_, index) => (
             <div
               key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === activeIndex ? "bg-plum w-6" : "bg-plum/20"
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === activeIndex ? "bg-plum" : "bg-plum/20"
               }`}
+              style={{ width: index === activeIndex ? "1.5rem" : "0.5rem" }}
             />
           ))}
         </div>
 
-        <div className="hidden md:grid md:grid-cols-3 gap-6">
+        {/* Desktop: 3-column grid */}
+        <div
+          className="hidden md:grid md:grid-cols-3"
+          style={{ gap: "1.5rem" }}
+        >
           {bars.map((bar) => (
-            <div key={bar.nameKey} className="glass-card p-4 flex flex-col gap-3">
-              <div className="aspect-[3/5] w-full rounded-xl bg-cream flex items-center justify-center">
-                <span className="text-plum/20 font-manrope text-sm">foto</span>
-              </div>
-              <h3 className="font-noto text-lg font-medium text-plum leading-tight">{t(bar.nameKey)}</h3>
-              <p className="font-manrope text-sm font-light text-plum/60 leading-relaxed">{t(bar.descKey)}</p>
-              <span className="glass-pill inline-block w-fit px-4 py-1.5 text-xs font-manrope font-semibold text-plum/70 tracking-wide mt-auto">
-                {t("price_placeholder")}
-              </span>
-            </div>
+            <BarCard key={bar.nameKey} bar={bar} t={t} />
           ))}
         </div>
       </motion.div>

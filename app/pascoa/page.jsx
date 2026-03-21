@@ -26,8 +26,9 @@ export default function PascoaPage() {
 
           {/* Dark-to-light gradient transition below hero */}
           <div
-            className="h-32 -mt-1"
+            className="h-32"
             style={{
+              marginTop: "-1px",
               background:
                 "linear-gradient(to bottom, #1A1212, #3D2526 30%, #745660 60%, #F5ECE9)",
             }}
@@ -35,15 +36,23 @@ export default function PascoaPage() {
 
           {/* Menu sections on textured light background */}
           <div className="bg-nude bg-grain">
-            <SectionOvosDeColher />
-            <SectionMiniOvos />
+            <div className="max-w-2xl mx-auto">
+              <SectionOvosDeColher />
+              <SectionMiniOvos />
+            </div>
           </div>
+
           <div className="bg-soft-pink bg-grain">
-            <SectionBarraChocolate />
-            <SectionKitConfeiteiro />
+            <div className="max-w-2xl mx-auto">
+              <SectionBarraChocolate />
+              <SectionKitConfeiteiro />
+            </div>
           </div>
+
           <div className="bg-cream bg-grain">
-            <FooterPascoa />
+            <div className="max-w-2xl mx-auto">
+              <FooterPascoa />
+            </div>
           </div>
         </main>
 
