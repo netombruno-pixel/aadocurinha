@@ -16,7 +16,7 @@ const HeroStatic = forwardRef(function HeroStatic(props, ref) {
       style={{ height: "100dvh" }}
     >
       {/* Dark cocoa background */}
-      <div className="absolute inset-0 bg-dark-cocoa" />
+      <div className="absolute" style={{ inset: 0, backgroundColor: '#1A1212' }} />
 
       {/* Content */}
       <div
