@@ -3,13 +3,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLanguage } from "./LanguageContext";
-import { CookingPot, Whisk, Sparkle, Drop } from "@phosphor-icons/react";
+import { CookingPot, ForkKnife, Sparkle, Drop } from "@phosphor-icons/react";
 
 const kitItems = [
   { icon: Drop, key: "kit_item_chocolate" },
   { icon: CookingPot, key: "kit_item_mold" },
   { icon: Sparkle, key: "kit_item_sprinkles" },
-  { icon: Whisk, key: "kit_item_whisk" },
+  { icon: ForkKnife, key: "kit_item_whisk" },
 ];
 
 export default function SectionKitConfeiteiro() {
