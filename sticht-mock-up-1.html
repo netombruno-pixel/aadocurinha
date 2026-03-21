@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gourmet Menu | A Docurinha</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,600&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-container": "#785a65",
+                        "surface-dim": "#e1d8d5",
+                        "surface": "#fff8f6",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#efe6e3",
+                        "surface-bright": "#fff8f6",
+                        "surface-tint": "#7a5555",
+                        "surface-container-highest": "#e9e1de",
+                        "on-surface-variant": "#504444",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#745660",
+                        "inverse-primary": "#ebbbba",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#f5ece9",
+                        "surface-variant": "#e9e1de",
+                        "error": "#ba1a1a",
+                        "tertiary": "#735c00",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#ffdad9",
+                        "primary-fixed-dim": "#ebbbba",
+                        "on-background": "#1e1b19",
+                        "secondary-fixed-dim": "#e2bdc8",
+                        "secondary-fixed": "#ffd9e4",
+                        "tertiary-container": "#cba72f",
+                        "on-primary-fixed": "#2e1414",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-tertiary-container": "#4e3d00",
+                        "tertiary-fixed": "#ffe088",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "inverse-surface": "#342f2e",
+                        "inverse-on-surface": "#f8efec",
+                        "on-primary-container": "#d6a7a7",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#fbf2ef",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#5a3f49",
+                        "primary": "#452627",
+                        "outline": "#827473",
+                        "on-primary-fixed-variant": "#603e3e",
+                        "outline-variant": "#d4c2c2",
+                        "background": "#fff8f6",
+                        "primary-container": "#5e3c3c",
+                        "on-surface": "#1e1b19",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#fcd6e2",
+                        "on-secondary-fixed": "#2b151d"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gentle-scale:hover {
+            transform: scale(1.02);
+        }
+        .ease-out-cubic {
+            transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-[#FFF8F6]/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full shadow-[0_10px_30px_rgba(69,38,39,0.04)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-105 transition-transform duration-300">menu</span>
+</div>
+<h1 class="text-2xl font-serif font-semibold italic text-[#452627] tracking-tight">A Docurinha</h1>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-105 transition-transform duration-300">shopping_bag</span>
+</div>
+</nav>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Hero Header -->
+<header class="mb-16 text-center lg:text-left flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+<div class="max-w-2xl">
+<span class="text-tertiary font-label tracking-[0.2em] text-xs uppercase font-bold mb-4 block">The Artisanal Gallery</span>
+<h2 class="text-5xl md:text-6xl font-headline font-bold text-primary leading-tight tracking-tight mb-6">Gourmet Menu</h2>
+<p class="text-on-surface-variant text-lg max-w-lg leading-relaxed">
+                    Explore our collection of hand-rolled brigadeiros, crafted with the finest cocoa and local ingredients. Each piece is a testament to our artisanal heritage.
+                </p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low px-6 py-4 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<p class="text-primary font-serif font-semibold italic italic">Hand-rolled daily with love</p>
+</div>
+</header>
+<!-- Seasonal Highlight Section -->
+<section class="mb-20">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-3xl font-headline font-bold text-primary">Seasonal Curations</h3>
+<div class="h-[1px] flex-grow mx-8 bg-outline-variant/20 hidden md:block"></div>
+<span class="text-secondary font-label text-sm font-semibold cursor-pointer hover:opacity-80 transition-opacity">Limited Edition</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Highlight Card 1 -->
+<div class="group relative overflow-hidden rounded-[2rem] bg-surface-container-high h-[400px] flex flex-col justify-end p-8 transition-transform duration-500 hover:shadow-xl">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Close up of pink ruby chocolate brigadeiros" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuACngIDW1yRxTpIPzVdhT4VyLLYuxnCD76swKwg0N8r1LxO37-oZrItvSXEiG4k885T5ywE7JAFxHapjwZoQNYBc6om94CdiY4HJFpXwFC1p61ChbvHxE0UPbHGfxh2KrSjW6qs-H0TODXO0fiNyZ0Zd-rJ8UdrofT7ynA9Y9k9XPcxPC9g7zhOWVBAd7yMGdjS-ksNSHi7CjyUDYNeR4KixAzUbzpCdyuRfgNimZZyCsYclnGrsu-9kC3isesF7faQ2-fbR8eqxzY')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="relative z-10">
+<span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-3 inline-block">New Arrival</span>
+<h4 class="text-3xl font-headline font-bold text-surface mb-2">Ruby Rose &amp; Pistachio</h4>
+<p class="text-surface-variant mb-6 text-sm max-w-xs">Naturally pink cocoa paired with roasted Iranian pistachios.</p>
+<button class="bg-surface text-primary px-8 py-3 rounded-full font-label font-bold text-sm gentle-scale transition-transform duration-300">Add to Box — $3.50</button>
+</div>
+</div>
+<!-- Highlight Card 2 -->
+<div class="group relative overflow-hidden rounded-[2rem] bg-surface-container-high h-[400px] flex flex-col justify-end p-8 transition-transform duration-500 hover:shadow-xl">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Gold dusted dark chocolate brigadeiros" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-CpZrvBeiXCuNohvoV2WV7SAvNBoe-hbxX0pC0R-jeP7zEPbZ4ShUMuhNSQ1_X1dWoXNlbdq6ymBOq-HkXajE39_g74FOZquthJGAOttqDXbfwliIykv22-6PFm3OkX-NqFIc7beHjHXlZbgzK9PabRRj6khp7B1YFIgfflkUhUwgTVA95O5B_kSmvzhCchcDdubu-4qXuRbfsb-UQEieRy-BMfvdzKjgfjQjQF2Any9pqdyvTck-Us2FRJPG-TBi5zeqdmB6Bbc')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+<div class="relative z-10">
+<span class="bg-tertiary text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mb-3 inline-block">Best Seller</span>
+<h4 class="text-3xl font-headline font-bold text-surface mb-2">Dark Gold 70%</h4>
+<p class="text-surface-variant mb-6 text-sm max-w-xs">Single-origin Brazilian cocoa finished with 24k gold leaf.</p>
+<button class="bg-surface text-primary px-8 py-3 rounded-full font-label font-bold text-sm gentle-scale transition-transform duration-300">Add to Box — $4.00</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Grid -->
+<section class="mb-20">
+<div class="flex items-center justify-between mb-12">
+<h3 class="text-3xl font-headline font-bold text-primary">The Classics</h3>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary hover:bg-primary-container hover:text-white transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+<!-- Product Jewel 1 -->
+<div class="flex flex-col items-center group">
+<div class="relative w-full aspect-square rounded-[2rem] bg-surface-container-low mb-6 overflow-hidden flex items-center justify-center group-hover:shadow-md transition-all duration-300">
+<div class="w-48 h-48 rounded-full bg-surface-container shadow-inner flex items-center justify-center overflow-hidden">
+<img alt="Belgian Milk Chocolate" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Traditional milk chocolate brigadeiro with chocolate sprinkles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeySzmg7cAltzJZUH5gk9Se-nwWSs3l-5TMs-lhk5uAhjm0CCSRGIcX5OAsv6h32h5SdnCnLIebt7QT8WhUu-ZyizxxrF9czkczWGQGaQaxVxDZZlf5-Wya6muFofLRWt09vfHBDjgRfMkw4InDHTtm5jtb7h3ngjvhSX5TGG4k2G2l-8re1S4pAvwMpx7WBCm8mbE1tquY-nBZ_n5NLiv7AfVBWLk2nOt-QUNO3zD_Jlf9M3t92osHuxpZ_jFsJ_BNJAqiOLp5OE"/>
+</div>
+<button class="absolute bottom-4 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-primary-container text-white p-3 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="text-center">
+<h5 class="text-xl font-headline font-bold text-primary mb-1">Traditional Belgian</h5>
+<p class="text-on-surface-variant text-sm mb-2">Creamy milk chocolate sprinkles</p>
+<span class="text-secondary font-bold">$2.50</span>
+</div>
+</div>
+<!-- Product Jewel 2 -->
+<div class="flex flex-col items-center group">
+<div class="relative w-full aspect-square rounded-[2rem] bg-surface-container-low mb-6 overflow-hidden flex items-center justify-center group-hover:shadow-md transition-all duration-300">
+<div class="w-48 h-48 rounded-full bg-surface-container shadow-inner flex items-center justify-center overflow-hidden">
+<img alt="White Chocolate Almond" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="White chocolate brigadeiro topped with toasted almond flakes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkKn-PZJHlw718n10eC9nnBjy5lcuUntnM6ZlHXIffjO9ObOZl3QZ42iieWpC52x-7y-Y_uuKkes2fPJB9pugBhQuogyZb-85V9kcqmpuDV7D4iwsMXUY5WsIXDLeh88w1CcKpWRuOHo4LE-4WdmBnBQhfy8OQDhV5Ti4Gss491ftY_h7nDHL7vQvYlf2Ii3XvmLHJnP5rjFn9XWExWYiEKD8hLF431D6-qI_ybSC2d463UNQyqUeSbzqv4DPEE3Fl67LeMAjPc4I"/>
+</div>
+<button class="absolute bottom-4 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-primary-container text-white p-3 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="text-center">
+<h5 class="text-xl font-headline font-bold text-primary mb-1">Almond White</h5>
+<p class="text-on-surface-variant text-sm mb-2">Silky white chocolate &amp; flakes</p>
+<span class="text-secondary font-bold">$2.75</span>
+</div>
+</div>
+<!-- Product Jewel 3 -->
+<div class="flex flex-col items-center group">
+<div class="relative w-full aspect-square rounded-[2rem] bg-surface-container-low mb-6 overflow-hidden flex items-center justify-center group-hover:shadow-md transition-all duration-300">
+<div class="w-48 h-48 rounded-full bg-surface-container shadow-inner flex items-center justify-center overflow-hidden">
+<img alt="Crème Brûlée" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Crème brûlée style brigadeiro with caramelized sugar top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5MYhcR_UyqN-aAIDS60QiFJjJ3iIcAlioed_P7pmYWgQN4L2bO9L_KxNvfR8TeMuQ8vP-F9b8V-xgdedxZby8OGUl-ilubsU5kgI8z7295aal14mDfsQlFoAA-rID8_FiEAzz7iqZnCFleXKo0Y91Bl69iePAyn6NsORLVsf0Fv7jUW5vD2KOiNKg8w_PNrB3xeruUCzfVswREF_9EPYAQ6aVvyhRBc0jpl3ZerE4hHpZ8Dimslr7Ng4jihtL66gEhvAfGj5tC7c"/>
+</div>
+<button class="absolute bottom-4 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-primary-container text-white p-3 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="text-center">
+<h5 class="text-xl font-headline font-bold text-primary mb-1">Crème Brûlée</h5>
+<p class="text-on-surface-variant text-sm mb-2">Caramelized sugar shell</p>
+<span class="text-secondary font-bold">$3.25</span>
+</div>
+</div>
+<!-- Product Jewel 4 -->
+<div class="flex flex-col items-center group">
+<div class="relative w-full aspect-square rounded-[2rem] bg-surface-container-low mb-6 overflow-hidden flex items-center justify-center group-hover:shadow-md transition-all duration-300">
+<div class="w-48 h-48 rounded-full bg-surface-container shadow-inner flex items-center justify-center overflow-hidden">
+<img alt="Coconut Blossom" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Coconut covered brigadeiro known as Beijinho" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYmLanTjH6ExXTHynEpg160Kuhdl8f-5Y7N9EDsshs_oxQ09xVudtTbZ9lXFrG_KdMku1wSeQTZXcdsY0IZo-3wCr-EAJJCzH6ma4U_KrFmI5kDq1q62lsGDY_HezKIptqg3TzKqRPVAbXVlPE5vGVVjD-gNfvPGqcZCbLTjvukT7by963D9tXqz8xqphth6K30NFyiI7W0nUEX9cdfpTU9-mUyGaOkt4qy3irF-VmxZPYPfNd8adlP7s7Rxf8PJ66EZKtqHVZvsI"/>
+</div>
+<button class="absolute bottom-4 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 bg-primary-container text-white p-3 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="text-center">
+<h5 class="text-xl font-headline font-bold text-primary mb-1">Coconut Blossom</h5>
+<p class="text-on-surface-variant text-sm mb-2">Organic shredded coconut</p>
+<span class="text-secondary font-bold">$2.50</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Info Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+<div class="md:col-span-2 bg-surface-container rounded-[2rem] p-10 flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-1">
+<h4 class="text-3xl font-headline font-bold text-primary mb-4 italic">The Docurinha Standard</h4>
+<p class="text-on-surface-variant leading-relaxed">
+                        We never use artificial preservatives or corn syrup. Our secrets are patience, a copper pot, and premium grass-fed butter.
+                    </p>
+</div>
+<div class="w-full md:w-1/3 aspect-video md:aspect-square bg-surface-container-highest rounded-2xl overflow-hidden grayscale">
+<img class="w-full h-full object-cover" data-alt="Artisan hands rolling a chocolate brigadeiro ball" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgqCBJW12iaQXfiGuTEp6H9BVzn4A8p7ZeW_9g9Mzev0UQKMAtc708ApYROCCTCVpz4DD98MCN_DCDAbInV7DVL2gqRxJrkudr72GEf3wibSp3ssQMRvtIktCDDYK_VUp3PWEWoSMJJ_9PLCMrnIp1h0Mk43KuR5FYJAZ8vtqzPdcgb95WygqM4DTb_lkmXK19okhHJm3i1mNIclJTtwqdhoKN00BnP4jwTe_xs-BxyjhOd5OeMp8ZPzTL5YCh0-xqNku5AupUzIs"/>
+</div>
+</div>
+<div class="bg-primary text-surface rounded-[2rem] p-10 flex flex-col justify-center text-center">
+<span class="material-symbols-outlined text-4xl mb-4 text-secondary-fixed">box_edit</span>
+<h4 class="text-2xl font-headline font-bold mb-4">Build Your Own</h4>
+<p class="text-surface-variant text-sm mb-8">Select 6, 12, or 24 pieces for a custom gift box experience.</p>
+<button class="bg-surface text-primary py-4 px-6 rounded-full font-bold text-sm gentle-scale transition-transform">Customize Box</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#FFF8F6]/90 backdrop-blur-2xl z-50 rounded-t-[2rem] shadow-[0_-10px_30px_rgba(69,38,39,0.06)]">
+<a class="flex flex-col items-center justify-center text-[#745660]/60 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined mb-1">storefront</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-medium">Atelier</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#452627] relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-[#745660] after:rounded-full" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-medium">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#745660]/60 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined mb-1">auto_stories</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-medium">Story</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#745660]/60 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-sans text-[11px] uppercase tracking-widest font-medium">Profile</span>
+</a>
+</nav>
+<!-- Floating Order Summary (Only on Menu) -->
+<div class="fixed bottom-28 right-6 z-40 md:right-12">
+<div class="bg-secondary-container text-on-secondary-fixed px-6 py-4 rounded-full shadow-lg flex items-center gap-4 border border-white/20 backdrop-blur-sm">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-primary"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-secondary"></div>
+</div>
+<div class="text-xs">
+<p class="font-bold">Your Box</p>
+<p class="opacity-70">2 / 12 Pieces</p>
+</div>
+<span class="material-symbols-outlined">arrow_forward_ios</span>
+</div>
+</div>
+</body></html>
