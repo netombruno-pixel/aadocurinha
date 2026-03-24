@@ -7,6 +7,14 @@ export const metadata = {
     description:
       "Cardápio de Páscoa 2026 — brigadeiros e ovos artesanais feitos com amor em Windermere, FL.",
     type: "website",
+    images: [
+      {
+        url: "/og-pascoa.jpg",
+        width: 1200,
+        height: 630,
+        alt: "A Docurinha — Páscoa 2026",
+      },
+    ],
   },
 };
 
