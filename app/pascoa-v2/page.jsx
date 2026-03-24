@@ -409,7 +409,7 @@ function PascoaV2Content() {
               <div>
                 <SectionHeader
                   title={t("section_mini_ovinhos")}
-                  subtitle="Casca 50 g · caixa com 6"
+                  subtitle={t("mini_ovinhos_subtitle")}
                   price={menuPascoa.miniOvinhos.priceFormatted}
                   small
                 />
@@ -425,7 +425,7 @@ function PascoaV2Content() {
               <div>
                 <SectionHeader
                   title={t("section_mini_ovinho_duo")}
-                  subtitle="Casca 50 g · mín. 2 un."
+                  subtitle={t("mini_ovinho_duo_subtitle")}
                   price={menuPascoa.miniOvinhoDuo.priceFormatted}
                   small
                 />
@@ -441,7 +441,7 @@ function PascoaV2Content() {
               <div className="col-span-2">
                 <SectionHeader
                   title={t("section_brigadeiros")}
-                  subtitle="Caixinha com 4 · mín. 2 caixinhas"
+                  subtitle={t("brigadeiros_subtitle")}
                   price={menuPascoa.brigadeiros.priceFormatted}
                   small
                 />
