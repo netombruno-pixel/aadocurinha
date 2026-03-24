@@ -484,6 +484,7 @@ function PascoaV2Content() {
           <AnimatedSection>
             <SectionHeader
               title={t("section_kit")}
+              price={menuPascoa.kitConfeiteiro.priceFormatted}
             />
             <div style={{ marginTop: "1rem" }}>
               <ProductCard
