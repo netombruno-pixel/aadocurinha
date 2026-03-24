@@ -1,77 +1,61 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useLanguage } from "./LanguageContext";
 
-export default function LanguageToggle({ heroRef }) {
-  const { lang, setLang, t } = useLanguage();
-  const [visible, setVisible] = useState(false);
+const languages = [
+  { code: "pt", flag: "🇧🇷", label: "PT" },
+  { code: "en", flag: "🇺🇸", label: "EN" },
+  { code: "es", flag: "🇪🇸", label: "ES" },
+];
 
-  useEffect(() => {
-    if (!heroRef?.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(!entry.isIntersecting);
-      },
-      { threshold: 0 }
-    );
-
-    observer.observe(heroRef.current);
-    return () => observer.disconnect();
-  }, [heroRef]);
+export default function LanguageToggle() {
+  const { lang, setLang } = useLanguage();
 
   return (
     <div
-      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
-        visible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 -translate-y-4 pointer-events-none"
-      }`}
-      style={{ top: "1rem" }}
+      className="rounded-full"
+      style={{
+        backgroundColor: "rgba(255, 248, 246, 0.6)",
+        padding: "0.2rem",
+        border: "1px solid rgba(69, 38, 39, 0.08)",
+      }}
     >
-      <div
-        className="glass-surface rounded-full"
-        style={{
-          padding: "0.25rem",
-          boxShadow: "0 4px 20px rgba(69, 38, 39, 0.12)",
+      <ToggleGroup
+        type="single"
+        value={lang}
+        onValueChange={(value) => {
+          if (value) setLang(value);
         }}
+        className="rounded-full"
+        style={{ gap: "0.125rem" }}
       >
-        <ToggleGroup
-          type="single"
-          value={lang}
-          onValueChange={(value) => {
-            if (value) setLang(value);
-          }}
-          variant="outline"
-          size="sm"
-          className="rounded-full"
-          style={{ gap: "0.125rem" }}
-        >
+        {languages.map(({ code, flag, label }) => (
           <ToggleGroupItem
-            value="pt"
-            className="rounded-full text-xs font-manrope font-semibold tracking-wider text-plum/50 data-[state=on]:bg-white/40 data-[state=on]:text-plum"
-            style={{ padding: "0.25rem 1rem" }}
+            key={code}
+            value={code}
+            className="cursor-pointer rounded-full transition-all duration-200"
+            style={{
+              padding: "0.35rem 0.7rem",
+              fontSize: "0.75rem",
+              fontFamily: "'Manrope', sans-serif",
+              fontWeight: 600,
+              letterSpacing: "0.04em",
+              border: "none",
+              backgroundColor: lang === code ? "#5E3C3C" : "transparent",
+              color: lang === code ? "#FFFFFF" : "#745660",
+              opacity: lang === code ? 1 : 0.7,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.3rem",
+              lineHeight: 1,
+            }}
           >
-            {t("lang_pt")}
+            <span style={{ fontSize: "0.9rem", lineHeight: 1 }}>{flag}</span>
+            <span>{label}</span>
           </ToggleGroupItem>
-          <ToggleGroupItem
-            value="en"
-            className="rounded-full text-xs font-manrope font-semibold tracking-wider text-plum/50 data-[state=on]:bg-white/40 data-[state=on]:text-plum"
-            style={{ padding: "0.25rem 1rem" }}
-          >
-            {t("lang_en")}
-          </ToggleGroupItem>
-          <ToggleGroupItem
-            value="es"
-            className="rounded-full text-xs font-manrope font-semibold tracking-wider text-plum/50 data-[state=on]:bg-white/40 data-[state=on]:text-plum"
-            style={{ padding: "0.25rem 1rem" }}
-          >
-            {t("lang_es")}
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
+        ))}
+      </ToggleGroup>
     </div>
   );
 }

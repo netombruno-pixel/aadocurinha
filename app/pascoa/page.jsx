@@ -2,21 +2,18 @@
 
 import { useState, useEffect, useRef } from "react";
 import { LanguageProvider, useLanguage } from "@/components/pascoa/LanguageContext";
+import LanguageToggle from "@/components/pascoa/LanguageToggle";
+import { menuPascoa } from "@/lib/pascoa-menu";
 import {
   WhatsappLogo,
   InstagramLogo,
   Heart,
   Plus,
-  CookingPot,
-  ForkKnife,
-  Sparkle,
-  Drop,
-  Package,
   ArrowRight,
 } from "@phosphor-icons/react";
 
 /* ------------------------------------------------------------------ */
-/*  Color tokens (inline-style friendly)                              */
+/*  Color tokens                                                       */
 /* ------------------------------------------------------------------ */
 const C = {
   primary: "#452627",
@@ -40,74 +37,26 @@ const FONT_HEADLINE = "'Noto Serif', serif";
 const FONT_BODY = "'Manrope', sans-serif";
 
 /* ------------------------------------------------------------------ */
-/*  Product data                                                      */
+/*  Badge helpers                                                      */
 /* ------------------------------------------------------------------ */
-const ovosDeColher = [
-  { nameKey: "ovo_flavor_1_name", descKey: "ovo_flavor_1_desc", badge: "bestseller" },
-  { nameKey: "ovo_flavor_2_name", descKey: "ovo_flavor_2_desc", badge: "new" },
-  { nameKey: "ovo_flavor_3_name", descKey: "ovo_flavor_3_desc", badge: "new" },
-  { nameKey: "ovo_flavor_4_name", descKey: "ovo_flavor_4_desc", badge: "popular" },
-  { nameKey: "ovo_flavor_5_name", descKey: "ovo_flavor_5_desc", badge: "tropical" },
-];
-
-const miniOvos = [
-  { nameKey: "mini_ovo_1_name", descKey: "mini_ovo_1_desc" },
-  { nameKey: "mini_ovo_2_name", descKey: "mini_ovo_2_desc" },
-];
-
-const barras = [
-  { nameKey: "barra_1_name", descKey: "barra_1_desc" },
-  { nameKey: "barra_2_name", descKey: "barra_2_desc" },
-  { nameKey: "barra_3_name", descKey: "barra_3_desc" },
-];
-
-const kitItems = [
-  { icon: Drop, key: "kit_item_chocolate" },
-  { icon: CookingPot, key: "kit_item_mold" },
-  { icon: Sparkle, key: "kit_item_sprinkles" },
-  { icon: ForkKnife, key: "kit_item_whisk" },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Badge label helper                                                */
-/* ------------------------------------------------------------------ */
-const badgeLabels = {
-  pt: { bestseller: "Mais Vendido", new: "Novidade", popular: "Popular", tropical: "Tropical", limited: "Edicao Limitada" },
-  en: { bestseller: "Best Seller", new: "New Arrival", popular: "Popular", tropical: "Tropical", limited: "Limited Edition" },
-  es: { bestseller: "Mas Vendido", new: "Novedad", popular: "Popular", tropical: "Tropical", limited: "Edicion Limitada" },
-};
-
-const handRolledLabels = {
-  pt: "Feito a mao com amor",
-  en: "Hand-rolled daily with love",
-  es: "Hecho a mano con amor",
-};
-
-const heroDescriptions = {
-  pt: "Descubra nossa colecao artesanal de Pascoa. Cada peca e preparada com ingredientes selecionados, sem conservantes artificiais, usando a tradicao brasileira de confeitaria.",
-  en: "Discover our artisanal Easter collection. Each piece is crafted with selected ingredients, no artificial preservatives, using the Brazilian confectionery tradition.",
-  es: "Descubra nuestra coleccion artesanal de Pascua. Cada pieza esta elaborada con ingredientes seleccionados, sin conservantes artificiales, siguiendo la tradicion confitera brasilena.",
-};
-
-const kitDescriptions = {
-  pt: "Tudo que voce precisa para criar seus proprios ovos de Pascoa em casa. Perfeito para criancas e familias que querem viver a magia da Pascoa juntos.",
-  en: "Everything you need to create your own Easter eggs at home. Perfect for kids and families who want to experience the magic of Easter together.",
-  es: "Todo lo que necesitas para crear tus propios huevos de Pascua en casa. Perfecto para ninos y familias que quieren vivir la magia de la Pascua juntos.",
+const badgeColors = {
+  bestseller: { bg: C.tertiary, text: C.white },
+  new: { bg: C.secondaryFixed, text: C.primaryContainer },
+  popular: { bg: C.secondaryContainer, text: C.primaryContainer },
+  tropical: { bg: "#E9C349", text: C.primaryContainer },
 };
 
 /* ------------------------------------------------------------------ */
-/*  Inner page content (needs LanguageContext)                        */
+/*  Inner page content                                                 */
 /* ------------------------------------------------------------------ */
 function PascoaContent() {
-  const { t, lang, setLang } = useLanguage();
+  const { t, lang } = useLanguage();
   const heroRef = useRef(null);
   const [showWhatsApp, setShowWhatsApp] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -122,7 +71,28 @@ function PascoaContent() {
     return () => observer.disconnect();
   }, []);
 
-  const badgeLabel = (type) => badgeLabels[lang]?.[type] ?? badgeLabels.pt[type];
+  const badgeLabel = (type) => t(`badge_${type}`) || type;
+
+  /** Renders a price tag or "Preço em breve" */
+  const PriceTag = ({ category }) => {
+    if (!category.priceFormatted) {
+      return (
+        <span className="font-bold" style={{ color: C.secondary, fontSize: "0.9rem" }}>
+          {t("price_soon")}
+        </span>
+      );
+    }
+    return (
+      <span className="font-bold" style={{ color: C.secondary, fontSize: "0.9rem" }}>
+        {category.priceFormatted}
+        {category.priceLabel && (
+          <span style={{ fontWeight: 400, fontSize: "0.75rem", marginLeft: "0.25rem", color: C.onSurfaceVariant }}>
+            / {t(`price_${category.priceLabel === "caixa com 4" ? "box" : "unit"}`)}
+          </span>
+        )}
+      </span>
+    );
+  };
 
   return (
     <div className="min-h-screen" style={{
@@ -130,11 +100,12 @@ function PascoaContent() {
       fontFamily: FONT_BODY,
       color: C.onSurface,
       backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
-      backgroundRepeat: 'repeat',
-      backgroundSize: '250px 250px',
+      backgroundRepeat: "repeat",
+      backgroundSize: "250px 250px",
     }}>
+
       {/* ======================================== */}
-      {/* TOP NAVIGATION — fixed glassmorphism     */}
+      {/* TOP NAVIGATION                           */}
       {/* ======================================== */}
       <nav
         className="fixed w-full z-50 flex justify-between items-center transition-all duration-300"
@@ -148,39 +119,11 @@ function PascoaContent() {
           boxShadow: scrolled ? "0 10px 30px rgba(69,38,39,0.04)" : "none",
         }}
       >
-        {/* Left spacer */}
-        <div style={{ width: "120px" }} />
-
-        {/* Center brand — logo */}
-        <img
-          src="/logo.png"
-          alt="A Docurinha"
-          style={{ height: "40px", width: "auto" }}
-        />
+        {/* Left: brand logo */}
+        <img src="/logo.png" alt="A Docurinha" style={{ height: "38px", width: "auto" }} />
 
         {/* Right: language toggle */}
-        <div className="flex items-center" style={{ gap: "0.25rem", width: "120px", justifyContent: "flex-end" }}>
-          {["pt", "en", "es"].map((l) => (
-            <button
-              key={l}
-              onClick={() => setLang(l)}
-              className="cursor-pointer uppercase font-bold transition-all duration-200"
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: "0.65rem",
-                letterSpacing: "0.08em",
-                padding: "0.3rem 0.55rem",
-                borderRadius: "9999px",
-                border: "none",
-                backgroundColor: lang === l ? C.primaryContainer : "transparent",
-                color: lang === l ? C.white : C.secondary,
-                opacity: lang === l ? 1 : 0.7,
-              }}
-            >
-              {l.toUpperCase()}
-            </button>
-          ))}
-        </div>
+        <LanguageToggle />
       </nav>
 
       {/* ======================================== */}
@@ -189,7 +132,7 @@ function PascoaContent() {
       <main style={{ paddingTop: "6rem", paddingBottom: "8rem", paddingLeft: "1.5rem", paddingRight: "1.5rem" }} className="max-w-7xl mx-auto">
 
         {/* ======================================== */}
-        {/* HERO HEADER — editorial style            */}
+        {/* HERO HEADER                              */}
         {/* ======================================== */}
         <header
           ref={heroRef}
@@ -197,7 +140,6 @@ function PascoaContent() {
           style={{ marginBottom: "4rem", gap: "2rem", textAlign: "center" }}
         >
           <div style={{ maxWidth: "42rem" }} className="lg:text-left">
-            {/* Gold label */}
             <span
               className="font-bold uppercase block"
               style={{
@@ -211,21 +153,18 @@ function PascoaContent() {
               {t("hero_subtitle")} / Easter Collection
             </span>
 
-            {/* Main title */}
             <h2
               className="font-bold tracking-tight leading-tight"
               style={{
                 fontFamily: FONT_HEADLINE,
                 color: C.primary,
                 fontSize: "clamp(2.5rem, 6vw, 3.75rem)",
-                marginBottom: "1.5rem",
                 margin: "0 0 1.5rem 0",
               }}
             >
               {t("hero_title")}
             </h2>
 
-            {/* Description */}
             <p
               className="leading-relaxed lg:text-left"
               style={{
@@ -236,11 +175,10 @@ function PascoaContent() {
                 margin: "0 auto",
               }}
             >
-              {heroDescriptions[lang]}
+              {t("hero_description")}
             </p>
           </div>
 
-          {/* Pill badge */}
           <div
             className="flex items-center"
             style={{
@@ -257,17 +195,16 @@ function PascoaContent() {
               className="font-semibold italic"
               style={{ fontFamily: FONT_HEADLINE, color: C.primary, margin: 0, fontSize: "0.9rem" }}
             >
-              {handRolledLabels[lang]}
+              {t("hand_rolled")}
             </p>
           </div>
         </header>
 
         {/* ======================================== */}
-        {/* SECTION: OVOS DE COLHER — Seasonal       */}
+        {/* SECTION: OVOS DE COLHER                  */}
         {/* ======================================== */}
         <section style={{ marginBottom: "5rem" }}>
-          {/* Section header */}
-          <div className="flex items-center justify-between" style={{ marginBottom: "2rem" }}>
+          <div className="flex items-center justify-between" style={{ marginBottom: "0.75rem" }}>
             <h3
               className="text-3xl font-bold"
               style={{ fontFamily: FONT_HEADLINE, color: C.primary, margin: 0 }}
@@ -282,24 +219,31 @@ function PascoaContent() {
               className="font-semibold hidden md:block"
               style={{ fontFamily: FONT_BODY, color: C.secondary, fontSize: "0.85rem" }}
             >
-              {badgeLabel("limited")}
+              {t("ovo_edition")}
             </span>
           </div>
 
-          {/* 2-column grid of hero cards + 5th spanning full */}
+          {/* Details pill */}
+          <p style={{ color: C.onSurfaceVariant, fontSize: "0.85rem", marginBottom: "2rem" }}>
+            {t("ovo_details")}
+            {menuPascoa.ovosDeColher.priceFormatted && (
+              <> · <strong>{menuPascoa.ovosDeColher.priceFormatted}</strong></>
+            )}
+          </p>
+
+          {/* 2-column grid + 5th spanning full */}
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.5rem" }}>
-            {ovosDeColher.slice(0, 4).map((ovo, i) => (
-              <OvoHeroCard key={ovo.nameKey} ovo={ovo} index={i} t={t} lang={lang} badgeLabel={badgeLabel} />
+            {menuPascoa.ovosDeColher.items.slice(0, 4).map((ovo, i) => (
+              <OvoHeroCard key={ovo.id} ovo={ovo} index={i} t={t} badgeLabel={badgeLabel} />
             ))}
-            {/* 5th card — full width */}
             <div className="md:col-span-2">
-              <OvoHeroCard ovo={ovosDeColher[4]} index={4} t={t} lang={lang} badgeLabel={badgeLabel} fullWidth />
+              <OvoHeroCard ovo={menuPascoa.ovosDeColher.items[4]} index={4} t={t} badgeLabel={badgeLabel} fullWidth />
             </div>
           </div>
         </section>
 
         {/* ======================================== */}
-        {/* SECTION: MINI OVOS — The Classics        */}
+        {/* SECTION: OVINHO CASADINHO                */}
         {/* ======================================== */}
         <section style={{ marginBottom: "5rem" }}>
           <div className="flex items-center justify-between" style={{ marginBottom: "3rem" }}>
@@ -307,146 +251,73 @@ function PascoaContent() {
               className="text-3xl font-bold"
               style={{ fontFamily: FONT_HEADLINE, color: C.primary, margin: 0 }}
             >
-              {t("section_mini_ovos")}
+              {t("section_ovinho_casadinho")}
             </h3>
             <div
               className="hidden md:block"
               style={{ height: "1px", flex: "1 1 0", margin: "0 2rem", backgroundColor: `${C.outlineVariant}33` }}
             />
+            <PriceTag category={menuPascoa.ovinhoCasadinho} />
           </div>
 
-          {/* Jewel layout: 2 centered cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "3rem", maxWidth: "36rem", margin: "0 auto" }}>
-            {miniOvos.map((item) => (
-              <JewelCard key={item.nameKey} item={item} t={t} />
+          <div style={{ maxWidth: "24rem", margin: "0 auto" }}>
+            {menuPascoa.ovinhoCasadinho.items.map((item) => (
+              <JewelCard key={item.id} item={item} t={t} category={menuPascoa.ovinhoCasadinho} />
             ))}
           </div>
         </section>
 
         {/* ======================================== */}
-        {/* SECTION: BARRAS — 3-col grid             */}
+        {/* SECTION: BARRAS TRUFADAS                 */}
         {/* ======================================== */}
         <section style={{ marginBottom: "5rem" }}>
-          <div className="flex items-center justify-between" style={{ marginBottom: "3rem" }}>
+          <div className="flex items-center justify-between" style={{ marginBottom: "0.75rem" }}>
             <h3
               className="text-3xl font-bold"
               style={{ fontFamily: FONT_HEADLINE, color: C.primary, margin: 0 }}
             >
-              {t("section_barra")}
+              {t("section_barras")}
             </h3>
             <div
               className="hidden md:block"
               style={{ height: "1px", flex: "1 1 0", margin: "0 2rem", backgroundColor: `${C.outlineVariant}33` }}
             />
+            <PriceTag category={menuPascoa.barrasTrufadas} />
           </div>
+
+          <p style={{ color: C.onSurfaceVariant, fontSize: "0.85rem", marginBottom: "2rem" }}>
+            {t("barra_details")}
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: "3rem" }}>
-            {barras.map((bar) => (
-              <JewelCard key={bar.nameKey} item={bar} t={t} tall />
+            {menuPascoa.barrasTrufadas.items.map((bar) => (
+              <JewelCard key={bar.id} item={bar} t={t} tall category={menuPascoa.barrasTrufadas} />
             ))}
           </div>
         </section>
 
         {/* ======================================== */}
-        {/* SECTION: KIT CONFEITEIRO — Bento grid    */}
+        {/* SECTION: BRIGADEIROS                     */}
         {/* ======================================== */}
         <section style={{ marginBottom: "5rem" }}>
-          <div className="flex items-center justify-between" style={{ marginBottom: "2rem" }}>
+          <div className="flex items-center justify-between" style={{ marginBottom: "3rem" }}>
             <h3
               className="text-3xl font-bold"
               style={{ fontFamily: FONT_HEADLINE, color: C.primary, margin: 0 }}
             >
-              {t("section_kit")}
+              {t("section_brigadeiros")}
             </h3>
+            <div
+              className="hidden md:block"
+              style={{ height: "1px", flex: "1 1 0", margin: "0 2rem", backgroundColor: `${C.outlineVariant}33` }}
+            />
+            <PriceTag category={menuPascoa.brigadeiros} />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "1.5rem" }}>
-            {/* Large card: description + image area */}
-            <div
-              className="md:col-span-2 flex flex-col md:flex-row items-center"
-              style={{
-                backgroundColor: C.surfaceContainer,
-                borderRadius: "2rem",
-                padding: "2.5rem",
-                gap: "2rem",
-              }}
-            >
-              <div style={{ flex: 1 }}>
-                <h4
-                  className="text-3xl font-bold italic"
-                  style={{ fontFamily: FONT_HEADLINE, color: C.primary, marginBottom: "1rem" }}
-                >
-                  {t("kit_name")}
-                </h4>
-                <p className="leading-relaxed" style={{ color: C.onSurfaceVariant, lineHeight: 1.7, marginBottom: "1.5rem" }}>
-                  {kitDescriptions[lang]}
-                </p>
-                {/* What's inside */}
-                <p
-                  className="font-semibold uppercase"
-                  style={{
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.1em",
-                    color: C.tertiary,
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  {t("kit_whats_inside")}
-                </p>
-                <div className="grid grid-cols-2" style={{ gap: "0.6rem" }}>
-                  {kitItems.map(({ icon: Icon, key }) => (
-                    <div key={key} className="flex items-center" style={{ gap: "0.5rem", color: C.onSurfaceVariant }}>
-                      <Icon size={18} weight="duotone" style={{ color: C.tertiary }} />
-                      <span style={{ fontSize: "0.85rem" }}>{t(key)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Image placeholder */}
-              <div
-                className="w-full md:w-1/3 aspect-square rounded-2xl overflow-hidden flex items-center justify-center"
-                style={{ backgroundColor: C.surfaceHighest, minHeight: "200px" }}
-              >
-                <span style={{ color: `${C.primary}30`, fontSize: "0.85rem", fontFamily: FONT_BODY }}>foto</span>
-              </div>
-            </div>
-
-            {/* CTA card */}
-            <div
-              className="flex flex-col justify-center text-center items-center"
-              style={{
-                backgroundColor: C.primary,
-                borderRadius: "2rem",
-                padding: "2.5rem",
-              }}
-            >
-              <Package size={40} weight="duotone" style={{ color: C.secondaryFixed, marginBottom: "1rem" }} />
-              <h4
-                className="text-2xl font-bold"
-                style={{ fontFamily: FONT_HEADLINE, color: C.surface, marginBottom: "1rem" }}
-              >
-                {t("kit_perfect_for")}
-              </h4>
-              <p style={{ color: C.surfaceHighest, fontSize: "0.85rem", marginBottom: "2rem", lineHeight: 1.6 }}>
-                {t("kit_desc")}
-              </p>
-              <button
-                className="font-bold cursor-pointer transition-all duration-300"
-                style={{
-                  backgroundColor: C.surface,
-                  color: C.primary,
-                  border: "none",
-                  borderRadius: "9999px",
-                  padding: "1rem 2rem",
-                  fontSize: "0.85rem",
-                  fontFamily: FONT_BODY,
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.03)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
-              >
-                {t("cta")}
-              </button>
-            </div>
+          <div style={{ maxWidth: "24rem", margin: "0 auto" }}>
+            {menuPascoa.brigadeiros.items.map((item) => (
+              <JewelCard key={item.id} item={item} t={t} category={menuPascoa.brigadeiros} />
+            ))}
           </div>
         </section>
 
@@ -454,11 +325,7 @@ function PascoaContent() {
         {/* FOOTER                                   */}
         {/* ======================================== */}
         <footer className="flex flex-col items-center text-center" style={{ padding: "3rem 0", gap: "1rem" }}>
-          <img
-            src="/logo-text.png"
-            alt="A Docurinha"
-            style={{ height: "48px", width: "auto" }}
-          />
+          <img src="/logo-text.png" alt="A Docurinha" style={{ height: "48px", width: "auto" }} />
 
           <a
             href="https://www.instagram.com/aadocurinha"
@@ -473,7 +340,6 @@ function PascoaContent() {
             <span style={{ fontSize: "0.85rem" }}>@aadocurinha</span>
           </a>
 
-          {/* Separator */}
           <div style={{ width: "8rem", height: "1px", backgroundColor: `${C.primary}15`, margin: "0.5rem 0" }} />
 
           <p style={{ fontSize: "0.75rem", color: `${C.primary}66`, margin: 0 }}>
@@ -527,7 +393,8 @@ function PascoaContent() {
           onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.05)"; }}
           onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
           onClick={() => {
-            /* Will link to wa.me when phone number is configured */
+            const msg = encodeURIComponent(t("cta_whatsapp_message"));
+            window.open(`https://wa.me/14072321740?text=${msg}`, "_blank");
           }}
         >
           <WhatsappLogo size={22} weight="fill" style={{ color: "#25D366" }} />
@@ -540,18 +407,11 @@ function PascoaContent() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  OVO HERO CARD component (inlined)                                 */
+/*  OVO HERO CARD                                                      */
 /* ------------------------------------------------------------------ */
-function OvoHeroCard({ ovo, index, t, lang, badgeLabel, fullWidth }) {
+function OvoHeroCard({ ovo, index, t, badgeLabel, fullWidth }) {
   const bgTones = [C.surfaceHigh, C.surfaceLow, C.surfaceContainer, C.surfaceHighest, C.surfaceHigh];
   const bgColor = bgTones[index % bgTones.length];
-
-  const badgeColors = {
-    bestseller: { bg: C.tertiary, text: C.white },
-    new: { bg: C.secondaryFixed, text: C.primaryContainer },
-    popular: { bg: C.secondaryContainer, text: C.primaryContainer },
-    tropical: { bg: "#E9C349", text: C.primaryContainer },
-  };
   const bc = badgeColors[ovo.badge] || badgeColors.new;
 
   return (
@@ -566,7 +426,7 @@ function OvoHeroCard({ ovo, index, t, lang, badgeLabel, fullWidth }) {
       onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 20px 60px rgba(69,38,39,0.12)"; }}
       onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
     >
-      {/* Gradient overlay from bottom */}
+      {/* Gradient overlay */}
       <div
         className="absolute z-10"
         style={{
@@ -576,17 +436,22 @@ function OvoHeroCard({ ovo, index, t, lang, badgeLabel, fullWidth }) {
         }}
       />
 
-      {/* Placeholder for future photo */}
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ inset: 0, borderRadius: "2rem" }}
-      >
-        <span style={{ color: `${C.primary}18`, fontSize: "0.9rem", fontFamily: FONT_BODY }}>foto</span>
+      {/* Product image */}
+      <div className="absolute flex items-center justify-center" style={{ inset: 0, borderRadius: "2rem" }}>
+        {ovo.image ? (
+          <img
+            src={ovo.image}
+            alt={t(ovo.nameKey)}
+            className="w-full h-full object-cover"
+            style={{ borderRadius: "2rem" }}
+          />
+        ) : (
+          <span style={{ color: `${C.primary}18`, fontSize: "0.9rem", fontFamily: FONT_BODY }}>foto</span>
+        )}
       </div>
 
       {/* Content overlay */}
-      <div className="relative z-10" style={{ position: "relative" }}>
-        {/* Badge */}
+      <div className="relative z-10">
         <span
           className="font-bold uppercase tracking-widest inline-block"
           style={{
@@ -602,53 +467,31 @@ function OvoHeroCard({ ovo, index, t, lang, badgeLabel, fullWidth }) {
           {badgeLabel(ovo.badge)}
         </span>
 
-        {/* Flavor name */}
         <h4
           className="text-3xl font-bold"
           style={{
             fontFamily: FONT_HEADLINE,
             color: C.surface,
-            marginBottom: "0.5rem",
             margin: "0 0 0.5rem 0",
           }}
         >
           {t(ovo.nameKey)}
         </h4>
 
-        {/* Description */}
         <p style={{ color: C.surfaceHighest, fontSize: "0.85rem", maxWidth: "18rem", lineHeight: 1.5, marginBottom: "1.25rem" }}>
           {t(ovo.descKey)}
         </p>
-
-        {/* Price button */}
-        <button
-          className="font-bold cursor-pointer transition-all duration-300"
-          style={{
-            backgroundColor: C.surface,
-            color: C.primary,
-            border: "none",
-            borderRadius: "9999px",
-            padding: "0.75rem 1.5rem",
-            fontSize: "0.8rem",
-            fontFamily: FONT_BODY,
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.03)"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
-        >
-          {t("price_placeholder")}
-        </button>
       </div>
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  JEWEL CARD component (circular image inside rounded square)       */
+/*  JEWEL CARD (circular image)                                        */
 /* ------------------------------------------------------------------ */
-function JewelCard({ item, t, tall }) {
+function JewelCard({ item, t, tall, category }) {
   return (
     <div className="flex flex-col items-center group">
-      {/* Image container */}
       <div
         className="relative w-full overflow-hidden flex items-center justify-center transition-all duration-300"
         style={{
@@ -658,18 +501,27 @@ function JewelCard({ item, t, tall }) {
           aspectRatio: tall ? "3/5" : "1/1",
         }}
       >
-        {/* Circular inner */}
-        <div
-          className="rounded-full overflow-hidden flex items-center justify-center"
-          style={{
-            width: "75%",
-            aspectRatio: "1/1",
-            backgroundColor: C.surfaceContainer,
-            boxShadow: "inset 0 4px 12px rgba(69,38,39,0.06)",
-          }}
-        >
-          <span style={{ color: `${C.primary}20`, fontSize: "0.85rem", fontFamily: FONT_BODY }}>foto</span>
-        </div>
+        {/* Image or placeholder */}
+        {item.image ? (
+          <img
+            src={item.image}
+            alt={t(item.nameKey)}
+            className="w-full h-full object-cover"
+            style={{ borderRadius: "2rem" }}
+          />
+        ) : (
+          <div
+            className="rounded-full overflow-hidden flex items-center justify-center"
+            style={{
+              width: "75%",
+              aspectRatio: "1/1",
+              backgroundColor: C.surfaceContainer,
+              boxShadow: "inset 0 4px 12px rgba(69,38,39,0.06)",
+            }}
+          >
+            <span style={{ color: `${C.primary}20`, fontSize: "0.85rem", fontFamily: FONT_BODY }}>foto</span>
+          </div>
+        )}
 
         {/* Hover add button */}
         <button
@@ -684,9 +536,6 @@ function JewelCard({ item, t, tall }) {
             width: "3rem",
             height: "3rem",
             boxShadow: "0 4px 16px rgba(69,38,39,0.2)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.opacity = "1";
           }}
         >
           <Plus size={20} weight="bold" />
@@ -704,16 +553,23 @@ function JewelCard({ item, t, tall }) {
         <p style={{ color: C.onSurfaceVariant, fontSize: "0.85rem", marginBottom: "0.5rem" }}>
           {t(item.descKey)}
         </p>
-        <span className="font-bold" style={{ color: C.secondary, fontSize: "0.9rem" }}>
-          {t("price_placeholder")}
-        </span>
+        {category?.priceFormatted && (
+          <span className="font-bold" style={{ color: C.secondary, fontSize: "0.9rem" }}>
+            {category.priceFormatted}
+          </span>
+        )}
+        {!category?.priceFormatted && (
+          <span className="font-bold" style={{ color: C.secondary, fontSize: "0.9rem" }}>
+            {t("price_soon")}
+          </span>
+        )}
       </div>
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  PAGE EXPORT (wraps with LanguageProvider)                         */
+/*  PAGE EXPORT                                                        */
 /* ------------------------------------------------------------------ */
 export default function PascoaPage() {
   return (
