@@ -268,7 +268,7 @@ function PascoaV2Content() {
       {/* ======================================== */}
       {/* HERO — v1 editorial style (light)        */}
       {/* ======================================== */}
-      <main style={{ paddingTop: "5.5rem", paddingBottom: "6rem" }} className="max-w-6xl mx-auto">
+      <main style={{ paddingTop: "5.5rem", paddingBottom: "6rem", maxWidth: "480px" }} className="mx-auto">
         <header
           ref={heroRef}
           className="flex flex-col items-center text-center"
