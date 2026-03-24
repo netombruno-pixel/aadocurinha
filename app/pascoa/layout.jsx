@@ -1,11 +1,11 @@
 export const metadata = {
-  title: "Pascoa 2026 | A Docurinha",
+  title: "Páscoa 2026 — A Docurinha",
   description:
-    "Cardapio de Pascoa 2026 da A Docurinha. Ovos de colher, mini ovos, barras de chocolate e kit confeiteiro artesanais. Encomende pelo WhatsApp.",
+    "Coleção artesanal de Páscoa. Ovos de colher, barras trufadas e brigadeiros feitos com chocolate belga Callebaut.",
   openGraph: {
-    title: "Pascoa 2026 | A Docurinha",
+    title: "Páscoa 2026 — A Docurinha",
     description:
-      "Cardapio de Pascoa 2026 — brigadeiros e ovos artesanais feitos com amor em Windermere, FL.",
+      "Cardápio de Páscoa 2026 — brigadeiros e ovos artesanais feitos com amor em Windermere, FL.",
     type: "website",
   },
 };
