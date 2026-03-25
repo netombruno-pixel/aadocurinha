@@ -363,7 +363,7 @@ function PascoaV2Content() {
           {/* Hero: box product photo */}
           <AnimatedSection delay={0.1}>
             <div
-              className="overflow-hidden"
+              className="relative overflow-hidden"
               style={{ borderRadius: "1rem", marginTop: "1.5rem" }}
             >
               <img
@@ -372,6 +372,34 @@ function PascoaV2Content() {
                 className="w-full h-auto"
                 style={{ display: "block", borderRadius: "1rem" }}
               />
+              {/* Caption banner */}
+              <div
+                className="absolute bottom-0 left-0 right-0"
+                style={{
+                  background: "rgba(69, 38, 39, 0.75)",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                  padding: "0.6rem 1rem",
+                  borderRadius: "0 0 1rem 1rem",
+                  textAlign: "center",
+                }}
+              >
+                <h4
+                  className="font-bold"
+                  style={{
+                    fontFamily: FONT_SERIF,
+                    color: "#FFF8F4",
+                    fontSize: "1rem",
+                    lineHeight: 1.2,
+                    marginBottom: "0.15rem",
+                  }}
+                >
+                  {t("section_ovos_colher")}
+                </h4>
+                <p style={{ color: "rgba(255,248,244,0.8)", fontSize: "0.65rem", lineHeight: 1.3, margin: 0 }}>
+                  {t("ovo_details")}
+                </p>
+              </div>
             </div>
           </AnimatedSection>
 
@@ -445,6 +473,33 @@ function PascoaV2Content() {
                   price={menuPascoa.brigadeiros.priceFormatted}
                   small
                 />
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: "0.5rem 0 0",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                  }}
+                >
+                  {[1, 2, 3].map((n) => (
+                    <li
+                      key={n}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.4rem",
+                        fontSize: "0.65rem",
+                        color: C.plumMuted,
+                      }}
+                    >
+                      <Diamond size={6} weight="fill" style={{ color: C.gold, flexShrink: 0 }} />
+                      <span>{t(`brig_item_${n}`)}</span>
+                    </li>
+                  ))}
+                </ul>
                 <div style={{ marginTop: "1rem", maxWidth: "50%", margin: "1rem auto 0" }}>
                   <ProductCard
                     item={menuPascoa.brigadeiros.items[0]}
@@ -486,10 +541,41 @@ function PascoaV2Content() {
               title={t("section_kit")}
               price={menuPascoa.kitConfeiteiro.priceFormatted}
             />
-            <div style={{ marginTop: "1rem" }}>
+
+            {/* Kit contents list */}
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                margin: "1rem 0",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5rem",
+              }}
+            >
+              {[1, 2, 3, 4, 5].map((n) => (
+                <li
+                  key={n}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "0.5rem",
+                    fontSize: "0.75rem",
+                    color: C.plumMuted,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <Diamond size={8} weight="fill" style={{ color: C.gold, flexShrink: 0, marginTop: "0.2rem" }} />
+                  <span>{t(`kit_item_${n}`)}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div style={{ marginTop: "0.5rem" }}>
               <ProductCard
                 item={menuPascoa.kitConfeiteiro.items[0]}
                 t={t}
+                showCaption={false}
                 aspectRatio="4/5"
               />
             </div>
@@ -681,11 +767,6 @@ function SectionHeader({ title, subtitle, badge: badgeLabel, price, small }) {
           {price}
         </p>
       )}
-      {!price && !small && (
-        <p className="font-semibold" style={{ color: C.gold, fontSize: "0.85rem", margin: 0 }}>
-          {/* Price TBD for ovos */}
-        </p>
-      )}
     </div>
   );
 }
@@ -693,7 +774,7 @@ function SectionHeader({ title, subtitle, badge: badgeLabel, price, small }) {
 /* ------------------------------------------------------------------ */
 /*  Product Card                                                       */
 /* ------------------------------------------------------------------ */
-function ProductCard({ item, t, badge: badgeLabel, showBadge, aspectRatio = "4/5" }) {
+function ProductCard({ item, t, badge: badgeLabel, showBadge, showCaption = true, aspectRatio = "4/5", objectPosition }) {
   return (
     <motion.div
       whileHover={{ y: -3 }}
@@ -714,6 +795,7 @@ function ProductCard({ item, t, badge: badgeLabel, showBadge, aspectRatio = "4/5
             src={item.image}
             alt={t(item.nameKey)}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            style={objectPosition ? { objectPosition } : undefined}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -721,20 +803,11 @@ function ProductCard({ item, t, badge: badgeLabel, showBadge, aspectRatio = "4/5
           </div>
         )}
 
-        {/* Gradient overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(to top, ${C.plum}AA 0%, ${C.plum}33 30%, transparent 55%)`,
-            borderRadius: "1rem",
-          }}
-        />
-
         {/* Badge */}
         {showBadge && badgeLabel && (
           <span
-            className="absolute font-bold uppercase tracking-widest"
             style={{
+              position: "absolute",
               top: "0.6rem",
               left: "0.6rem",
               backgroundColor: `${C.gold}EE`,
@@ -742,38 +815,62 @@ function ProductCard({ item, t, badge: badgeLabel, showBadge, aspectRatio = "4/5
               padding: "0.15rem 0.5rem",
               borderRadius: "9999px",
               fontSize: "0.45rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
               letterSpacing: "0.08em",
+              zIndex: 3,
             }}
           >
             {badgeLabel}
           </span>
         )}
 
-        {/* Name overlay */}
-        <div className="absolute bottom-0 left-0 right-0" style={{ padding: "0.75rem" }}>
-          <h4
-            className="font-bold"
+        {/* Caption banner — Apple Glass style */}
+        {showCaption && <span
+          className="absolute"
+          style={{
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "3.2rem",
+            background: "rgba(255, 255, 255, 0.18)",
+            backdropFilter: "blur(24px) saturate(1.4)",
+            WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+            borderTop: "1px solid rgba(255, 255, 255, 0.25)",
+            padding: "0.45rem 0.75rem",
+            borderRadius: "0 0 1rem 1rem",
+            zIndex: 2,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <span
             style={{
+              display: "block",
               fontFamily: FONT_SERIF,
-              color: C.onDark,
-              fontSize: "clamp(0.8rem, 2.5vw, 1.1rem)",
+              fontWeight: 700,
+              color: "#FFFFFF",
+              fontSize: "clamp(0.75rem, 2.5vw, 0.95rem)",
               lineHeight: 1.2,
-              marginBottom: "0.15rem",
+              textShadow: "0 1px 3px rgba(0,0,0,0.3)",
             }}
           >
             {t(item.nameKey)}
-          </h4>
-          <p
-            className="hidden sm:block"
+          </span>
+          <span
             style={{
-              color: `${C.onDark}BB`,
-              fontSize: "0.65rem",
+              display: "block",
+              color: "rgba(255,255,255,0.85)",
+              fontSize: "0.55rem",
               lineHeight: 1.3,
+              marginTop: "0.1rem",
+              textShadow: "0 1px 2px rgba(0,0,0,0.2)",
             }}
           >
             {t(item.descKey)}
-          </p>
-        </div>
+          </span>
+        </span>}
       </div>
     </motion.div>
   );
@@ -960,39 +1057,52 @@ function BarrasCarousel({ items, t }) {
                     style={{ objectPosition: "center 40%" }}
                   />
 
-                  {/* Gradient overlay */}
-                  <div
-                    className="absolute inset-0"
+                  {/* Caption banner — Apple Glass style */}
+                  <span
+                    className="absolute"
                     style={{
-                      background: `linear-gradient(to top, ${C.plum}BB 0%, ${C.plum}44 35%, transparent 60%)`,
-                      borderRadius: "1rem",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: "3.2rem",
+                      background: "rgba(255, 255, 255, 0.18)",
+                      backdropFilter: "blur(24px) saturate(1.4)",
+                      WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+                      borderTop: "1px solid rgba(255, 255, 255, 0.25)",
+                      padding: "0.45rem 0.75rem",
+                      borderRadius: "0 0 1rem 1rem",
+                      zIndex: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
                     }}
-                  />
-
-                  {/* Flavor label */}
-                  <div className="absolute bottom-0 left-0 right-0" style={{ padding: "0.75rem" }}>
-                    <h4
-                      className="font-bold"
+                  >
+                    <span
                       style={{
+                        display: "block",
                         fontFamily: FONT_SERIF,
-                        color: C.onDark,
-                        fontSize: "1.1rem",
+                        fontWeight: 700,
+                        color: "#FFFFFF",
+                        fontSize: "0.95rem",
                         lineHeight: 1.2,
-                        marginBottom: "0.2rem",
+                        textShadow: "0 1px 3px rgba(0,0,0,0.3)",
                       }}
                     >
                       {t(bar.nameKey)}
-                    </h4>
-                    <p
+                    </span>
+                    <span
                       style={{
-                        color: `${C.onDark}BB`,
-                        fontSize: "0.7rem",
+                        display: "block",
+                        color: "rgba(255,255,255,0.85)",
+                        fontSize: "0.55rem",
                         lineHeight: 1.3,
+                        marginTop: "0.1rem",
+                        textShadow: "0 1px 2px rgba(0,0,0,0.2)",
                       }}
                     >
                       {t(bar.descKey)}
-                    </p>
-                  </div>
+                    </span>
+                  </span>
                 </div>
               </div>
             </div>
