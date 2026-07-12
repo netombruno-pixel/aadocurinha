@@ -9,7 +9,6 @@ const NAV_ITEMS = [
   { href: "/", key: "nav_home" },
   { href: "/brigadeiros", key: "nav_brigadeiros" },
   { href: "/naked-cakes", key: "nav_cakes" },
-  { href: "/pascoa", key: "nav_pascoa" },
   { href: "/about", key: "nav_about" },
   { href: "/contact", key: "nav_contact" },
 ];
@@ -85,7 +84,7 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          {/* Social + hours */}
+          {/* Social */}
           <div>
             <h4
               className="uppercase font-bold tracking-widest"
@@ -98,24 +97,11 @@ export default function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center transition-opacity hover:opacity-70"
-              style={{ gap: "0.5rem", color: "#504444", fontSize: "0.9rem", marginBottom: "1.4rem" }}
+              style={{ gap: "0.5rem", color: "#504444", fontSize: "0.9rem" }}
             >
               <InstagramLogo size={17} weight="duotone" style={{ color: "#9E7C3F" }} />
               @{INSTAGRAM_HANDLE}
             </a>
-            <h4
-              className="uppercase font-bold tracking-widest"
-              style={{ fontFamily: "var(--font-manrope)", fontSize: "0.7rem", letterSpacing: "0.18em", color: "#9E7C3F", margin: "0 0 0.8rem" }}
-            >
-              {t("footer_hours")}
-            </h4>
-            <p style={{ color: "#504444", fontSize: "0.85rem", lineHeight: 1.8, margin: 0 }}>
-              {t("contact_hours_week")}: 9AM – 6PM
-              <br />
-              {t("contact_hours_sat")}: 10AM – 4PM
-              <br />
-              {t("contact_hours_sun")}: {t("contact_hours_appt")}
-            </p>
           </div>
         </div>
 

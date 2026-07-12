@@ -1,32 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { WhatsappLogo, ArrowRight, Star, Diamond, CheckCircle } from "@phosphor-icons/react";
+import { WhatsappLogo, ArrowRight, Star, Diamond, Sparkle } from "@phosphor-icons/react";
 import Link from "next/link";
 import PageShell, { Reveal, Eyebrow, GoldRule } from "@/components/site/PageShell";
 import { useLanguage } from "@/components/pascoa/LanguageContext";
 import {
   waLink,
   BRIGADEIRO_FLAVORS,
-  BRIGADEIRO_TIERS,
+  BRIGADEIRO_CATEGORIES,
   flavorImage,
-  tierPrice,
   formatUSD,
 } from "@/lib/site";
 
-const TIER_COLORS = {
-  classic: { bg: "#F5EDE8", text: "#745660" },
-  signature: { bg: "#FCE9EF", text: "#A05A6E" },
-  gourmet: { bg: "#F3E8DA", text: "#8A6B3F" },
-  premium: { bg: "#EFE3F0", text: "#7B5C86" },
-  gold: { bg: "linear-gradient(135deg, #C9A96E, #9E7C3F)", text: "#FFFFFF" },
-};
+const CATEGORY_ORDER = ["classicos", "especiais", "premiums"];
 
 function FlavorCard({ flavor, index }) {
   const { t } = useLanguage();
-  const tier = BRIGADEIRO_TIERS[flavor.tier];
-  const colors = TIER_COLORS[flavor.tier];
-  const isGold = flavor.tier === "gold";
+  const photo = flavorImage(flavor);
 
   return (
     <Reveal as="div" delay={Math.min(index % 4, 3) * 0.07}>
@@ -37,18 +28,25 @@ function FlavorCard({ flavor, index }) {
         style={{
           backgroundColor: "#FFFFFF",
           borderRadius: "1.5rem",
-          boxShadow: isGold
-            ? "0 10px 40px rgba(201,169,110,0.3)"
-            : "0 8px 30px rgba(69,38,39,0.07)",
+          boxShadow: "0 8px 30px rgba(69,38,39,0.07)",
         }}
       >
         <div className="relative overflow-hidden" style={{ aspectRatio: "1/1", backgroundColor: "#FBEFF5" }}>
-          <img
-            src={flavorImage(flavor)}
-            alt={flavor.name}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.06]"
-          />
+          {photo ? (
+            <img
+              src={photo}
+              alt={flavor.name}
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.06]"
+            />
+          ) : (
+            <div
+              className="w-full h-full flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, #FBEFF5, #F0DBCE)" }}
+            >
+              <Sparkle size={44} weight="duotone" style={{ color: "#C9A96E" }} />
+            </div>
+          )}
           {flavor.popular && (
             <span
               className="absolute flex items-center font-bold uppercase tracking-wider"
@@ -72,34 +70,62 @@ function FlavorCard({ flavor, index }) {
         </div>
 
         <div className="flex flex-col flex-1" style={{ padding: "1.1rem 1.2rem 1.3rem" }}>
-          <div className="flex items-start justify-between" style={{ gap: "0.5rem", marginBottom: "0.4rem" }}>
-            <h3 className="font-serif font-bold" style={{ fontSize: "1.05rem", color: "#452627", lineHeight: 1.25 }}>
-              {flavor.name}
-            </h3>
-            <span
-              className="font-bold uppercase tracking-wider shrink-0"
-              style={{
-                fontSize: "0.52rem",
-                letterSpacing: "0.1em",
-                padding: "0.28rem 0.6rem",
-                borderRadius: "9999px",
-                background: colors.bg,
-                color: colors.text,
-              }}
-            >
-              {t(tier.labelKey)}
-            </span>
-          </div>
-          <p style={{ color: "#745660", fontSize: "0.78rem", lineHeight: 1.55, margin: "0 0 0.8rem", flex: 1 }}>
+          <h3 className="font-serif font-bold" style={{ fontSize: "1.05rem", color: "#452627", lineHeight: 1.25, marginBottom: "0.4rem" }}>
+            {flavor.name}
+          </h3>
+          <p style={{ color: "#745660", fontSize: "0.78rem", lineHeight: 1.55, margin: 0, flex: 1 }}>
             {t(`flavor_${flavor.slug}_desc`)}
-          </p>
-          <p className="font-bold" style={{ color: "#9E7C3F", fontSize: "0.95rem", margin: 0 }}>
-            {formatUSD(tierPrice(flavor))}{" "}
-            <span className="font-medium" style={{ color: "#745660", fontSize: "0.72rem" }}>/ {t("price_each")}</span>
           </p>
         </div>
       </motion.div>
     </Reveal>
+  );
+}
+
+function CategorySection({ categoryKey, flavors }) {
+  const { t } = useLanguage();
+  const pricing = BRIGADEIRO_CATEGORIES[categoryKey];
+
+  return (
+    <div style={{ marginBottom: "3.5rem" }}>
+      <Reveal as="div" className="text-center" style={{ marginBottom: "1.8rem" }}>
+        <h2 className="font-serif font-bold tracking-tight" style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.2rem)", color: "#452627", margin: "0 0 0.7rem" }}>
+          {t(pricing.labelKey)}
+        </h2>
+        <div className="inline-flex flex-wrap items-center justify-center" style={{ gap: "0.5rem" }}>
+          <span
+            className="font-bold"
+            style={{
+              background: "linear-gradient(135deg, rgba(201,169,110,0.16), rgba(158,124,63,0.12))",
+              color: "#9E7C3F",
+              padding: "0.45rem 1.1rem",
+              borderRadius: "9999px",
+              fontSize: "0.85rem",
+            }}
+          >
+            100 {t("brig_units")} · {formatUSD(pricing.per100)}
+          </span>
+          <span
+            className="font-bold"
+            style={{
+              background: "linear-gradient(135deg, rgba(201,169,110,0.16), rgba(158,124,63,0.12))",
+              color: "#9E7C3F",
+              padding: "0.45rem 1.1rem",
+              borderRadius: "9999px",
+              fontSize: "0.85rem",
+            }}
+          >
+            50 {t("brig_units")} · {formatUSD(pricing.per50)}
+          </span>
+        </div>
+      </Reveal>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" style={{ gap: "1.25rem" }}>
+        {flavors.map((flavor, i) => (
+          <FlavorCard key={flavor.slug} flavor={flavor} index={i} />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -115,7 +141,13 @@ function BrigadeirosContent() {
   const { t } = useLanguage();
 
   const badges = [t("brig_badge_1"), t("brig_badge_2"), t("brig_badge_3")];
-  const orderNotes = [t("brig_order_1"), t("brig_order_2"), t("brig_order_3"), t("brig_order_4")];
+  const orderNotes = [
+    t("brig_order_1"),
+    t("brig_order_2"),
+    t("brig_order_3"),
+    t("brig_order_4"),
+    t("brig_order_5"),
+  ];
 
   return (
     <main>
@@ -169,17 +201,19 @@ function BrigadeirosContent() {
 
       <GoldRule padding="1.5rem 0 2.5rem" />
 
-      {/* Flavor grid */}
+      {/* Flavor grid by category */}
       <section className="mx-auto" style={{ maxWidth: "78rem", padding: "0 1.5rem" }}>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" style={{ gap: "1.25rem" }}>
-          {BRIGADEIRO_FLAVORS.map((flavor, i) => (
-            <FlavorCard key={flavor.slug} flavor={flavor} index={i} />
-          ))}
-        </div>
+        {CATEGORY_ORDER.map((cat) => (
+          <CategorySection
+            key={cat}
+            categoryKey={cat}
+            flavors={BRIGADEIRO_FLAVORS.filter((f) => f.category === cat)}
+          />
+        ))}
       </section>
 
       {/* Order info */}
-      <Reveal className="mx-auto" style={{ maxWidth: "56rem", padding: "4rem 1.5rem 5rem" }}>
+      <Reveal className="mx-auto" style={{ maxWidth: "56rem", padding: "2rem 1.5rem 5rem" }}>
         <div
           className="text-center"
           style={{
@@ -196,7 +230,7 @@ function BrigadeirosContent() {
             style={{ listStyle: "none", padding: 0, margin: "0 0 2rem", gap: "0.65rem" }}
           >
             {orderNotes.map((note) => (
-              <li key={note} className="flex items-center" style={{ gap: "0.55rem" }}>
+              <li key={note} className="flex items-center text-center" style={{ gap: "0.55rem" }}>
                 <Diamond size={9} weight="fill" style={{ color: "#C9A96E", flexShrink: 0 }} />
                 <span style={{ color: "rgba(255,248,244,0.85)", fontSize: "0.9rem" }}>{note}</span>
               </li>

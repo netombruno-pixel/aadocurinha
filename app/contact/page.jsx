@@ -7,7 +7,6 @@ import {
   InstagramLogo,
   EnvelopeSimple,
   MapPin,
-  Clock,
   Info,
   PaperPlaneTilt,
   Diamond,
@@ -286,25 +285,6 @@ function ContactContent() {
           </Reveal>
 
           <Reveal as="div" delay={0.2}>
-            <InfoCard title={t("contact_hours_title")} icon={Clock}>
-              <div className="flex flex-col" style={{ gap: "0.55rem" }}>
-                <div className="flex items-center justify-between">
-                  <span style={{ color: "#745660", fontSize: "0.88rem" }}>{t("contact_hours_week")}</span>
-                  <span className="font-semibold" style={{ color: "#452627", fontSize: "0.88rem" }}>9:00 AM – 6:00 PM</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span style={{ color: "#745660", fontSize: "0.88rem" }}>{t("contact_hours_sat")}</span>
-                  <span className="font-semibold" style={{ color: "#452627", fontSize: "0.88rem" }}>10:00 AM – 4:00 PM</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span style={{ color: "#745660", fontSize: "0.88rem" }}>{t("contact_hours_sun")}</span>
-                  <span className="font-semibold" style={{ color: "#452627", fontSize: "0.88rem" }}>{t("contact_hours_appt")}</span>
-                </div>
-              </div>
-            </InfoCard>
-          </Reveal>
-
-          <Reveal as="div" delay={0.3}>
             <InfoCard title={t("contact_info_title")} icon={Info}>
               <ul className="flex flex-col" style={{ listStyle: "none", padding: 0, margin: 0, gap: "0.65rem" }}>
                 {infoItems.map((item) => (

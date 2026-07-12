@@ -9,6 +9,7 @@ import {
   ArrowRight,
   ChatCircleDots,
   Gift,
+  Cake,
 } from "@phosphor-icons/react";
 import PageShell, { Reveal, Eyebrow, GoldRule } from "@/components/site/PageShell";
 import { useLanguage } from "@/components/pascoa/LanguageContext";
@@ -123,12 +124,20 @@ function Hero() {
         className="relative"
       >
         <div className="relative overflow-hidden" style={{ borderRadius: "2rem", boxShadow: "0 30px 80px rgba(69,38,39,0.18)" }}>
-          <img
-            src="/brigadeiros-hero.png"
-            alt="Brigadeiros gourmet com folha de ouro"
-            className="w-full h-auto"
-            style={{ display: "block", aspectRatio: "1/1", objectFit: "cover" }}
-          />
+          <div className="grid grid-cols-2" style={{ gap: "0.4rem", aspectRatio: "1/1" }}>
+            {["brigadeiro", "ninho-nutella", "morango-ninho", "oreo"].map((slug) => {
+              const flavor = BRIGADEIRO_FLAVORS.find((f) => f.slug === slug);
+              return (
+                <img
+                  key={slug}
+                  src={flavorImage(flavor)}
+                  alt={flavor.name}
+                  className="w-full h-full object-cover"
+                  style={{ display: "block" }}
+                />
+              );
+            })}
+          </div>
           {/* Glass caption */}
           <div
             className="absolute"
@@ -161,7 +170,7 @@ function Hero() {
           </div>
         </div>
 
-        {/* Offset naked cake card */}
+        {/* Offset gold brigadeiro card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -177,8 +186,8 @@ function Hero() {
           }}
         >
           <img
-            src="/naked-cake.png"
-            alt="Naked cake com frutas frescas"
+            src="/flavors/brigadeiro-dourado.png"
+            alt="Brigadeiro Dourado com folha de ouro"
             className="w-full h-auto"
             style={{ display: "block", aspectRatio: "4/5", objectFit: "cover" }}
           />
@@ -192,7 +201,8 @@ function Hero() {
 /*  Flavor Marquee                                                     */
 /* ------------------------------------------------------------------ */
 function FlavorMarquee() {
-  const items = [...BRIGADEIRO_FLAVORS, ...BRIGADEIRO_FLAVORS];
+  const withPhoto = BRIGADEIRO_FLAVORS.filter((f) => !f.noPhoto);
+  const items = [...withPhoto, ...withPhoto];
 
   return (
     <div className="relative overflow-hidden" style={{ padding: "2.5rem 0" }}>
@@ -249,24 +259,17 @@ function Collections() {
   const cards = [
     {
       href: "/brigadeiros",
-      img: "/brigadeiros-variety.png",
+      img: "/flavors/coco-colorido.png",
       title: t("col_brig_title"),
       desc: t("col_brig_desc"),
       cta: t("col_brig_cta"),
     },
     {
       href: "/naked-cakes",
-      img: "/naked-cake.png",
+      img: null,
       title: t("col_cake_title"),
       desc: t("col_cake_desc"),
       cta: t("col_cake_cta"),
-    },
-    {
-      href: "/pascoa",
-      img: "/pascoa/box-of-2-easter-eggs.png",
-      title: t("col_pascoa_title"),
-      desc: t("col_pascoa_desc"),
-      cta: t("col_pascoa_cta"),
     },
   ];
 
@@ -282,7 +285,7 @@ function Collections() {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "1.75rem" }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 mx-auto" style={{ gap: "1.75rem", maxWidth: "56rem" }}>
         {cards.map((card, i) => (
           <Reveal key={card.href} as="div" delay={i * 0.12}>
             <Link href={card.href} className="group block h-full">
@@ -295,12 +298,21 @@ function Collections() {
                 }}
               >
                 <div className="overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                  <img
-                    src={card.img}
-                    alt={card.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                  />
+                  {card.img ? (
+                    <img
+                      src={card.img}
+                      alt={card.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                    />
+                  ) : (
+                    <div
+                      className="w-full h-full flex items-center justify-center transition-transform duration-700 group-hover:scale-[1.05]"
+                      style={{ background: "linear-gradient(135deg, #F5EDE8, #F0DBCE)" }}
+                    >
+                      <Cake size={72} weight="duotone" style={{ color: "#9E7C3F" }} />
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col flex-1" style={{ padding: "1.6rem 1.6rem 1.8rem" }}>
                   <h3 className="font-serif font-bold" style={{ fontSize: "1.4rem", color: "#452627", marginBottom: "0.5rem" }}>
@@ -346,8 +358,8 @@ function Story() {
       >
         <div className="overflow-hidden h-full" style={{ minHeight: "320px" }}>
           <img
-            src="/premium_hero.png"
-            alt="Brigadeiro gourmet"
+            src="/flavors/ferrero.png"
+            alt="Brigadeiro Ferrero Rocher"
             loading="lazy"
             className="w-full h-full object-cover"
           />
