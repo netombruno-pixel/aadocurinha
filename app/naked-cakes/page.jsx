@@ -1,238 +1,331 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from 'next/image';
-import Link from 'next/link';
-import { Cake, Clock, Users, Star } from 'lucide-react';
+"use client";
 
-export const metadata = {
-  title: "Naked Cakes | A Docurinha",
-  description: "Elegant naked cakes for your special occasions. Custom designs and flavors available.",
-};
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { WhatsappLogo, ArrowRight, Diamond, Cake } from "@phosphor-icons/react";
+import PageShell, { Reveal, Eyebrow, GoldRule } from "@/components/site/PageShell";
+import { useLanguage } from "@/components/pascoa/LanguageContext";
+import { waLink, formatUSD, CAKE_SIZES, CAKE_MASSAS, CAKE_RECHEIOS, CAKE_OPCIONAIS } from "@/lib/site";
 
-export default function NakedCakes() {
-  const cakeTypes = [
-    {
-      name: "Classic Vanilla",
-      description: "Moist vanilla sponge with Swiss meringue buttercream and fresh berries",
-      serves: "10-12",
-      price: "Starting at $85",
-      popular: true
-    },
-    {
-      name: "Chocolate Dream",
-      description: "Rich chocolate layers with chocolate ganache and chocolate shavings",
-      serves: "10-12",
-      price: "Starting at $95"
-    },
-    {
-      name: "Red Velvet",
-      description: "Traditional red velvet with cream cheese frosting",
-      serves: "10-12",
-      price: "Starting at $90",
-      popular: true
-    },
-    {
-      name: "Lemon Berry",
-      description: "Lemon sponge with lemon curd and mixed berry compote",
-      serves: "10-12",
-      price: "Starting at $90"
-    },
-    {
-      name: "Carrot Spice",
-      description: "Spiced carrot cake with cream cheese frosting and walnuts",
-      serves: "10-12",
-      price: "Starting at $85"
-    },
-    {
-      name: "Funfetti Celebration",
-      description: "Colorful vanilla cake with rainbow sprinkles and vanilla buttercream",
-      serves: "10-12",
-      price: "Starting at $85"
-    }
-  ];
+function TabButton({ active, onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      className="cursor-pointer font-bold uppercase tracking-widest transition-all duration-250"
+      style={{
+        fontSize: "0.7rem",
+        letterSpacing: "0.15em",
+        padding: "0.65rem 1.5rem",
+        borderRadius: "9999px",
+        border: "none",
+        backgroundColor: active ? "#452627" : "transparent",
+        color: active ? "#FFF8F4" : "#745660",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
 
-  const sizes = [
-    { size: "6 inch", serves: "6-8 people", price: "Starting at $65" },
-    { size: "8 inch", serves: "10-12 people", price: "Starting at $85" },
-    { size: "10 inch", serves: "16-20 people", price: "Starting at $120" },
-    { size: "2-tier", serves: "25-30 people", price: "Starting at $180" },
-    { size: "3-tier", serves: "40-50 people", price: "Starting at $280" }
-  ];
+export default function NakedCakesPage() {
+  return (
+    <PageShell>
+      <NakedCakesContent />
+    </PageShell>
+  );
+}
 
-  const addOns = [
-    "Fresh flowers decoration",
-    "Gold leaf accents",
-    "Custom cake topper",
-    "Macarons decoration",
-    "Fresh fruit arrangement",
-    "Edible flowers",
-    "Chocolate drip",
-    "Custom message"
-  ];
+function NakedCakesContent() {
+  const { t } = useLanguage();
+  const [tab, setTab] = useState("sizes");
+
+  const badges = [t("cakes_badge_1"), t("cakes_badge_2"), t("cakes_badge_3")];
 
   return (
-    <>
-      <Header />
-      <main>
-        {/* Hero Section */}
-        <section className="relative py-20 md:py-32 bg-gradient-to-br from-background to-muted">
-          <div className="absolute inset-0 bg-grid-black/[0.02] -z-10" />
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6">
-              Naked Cakes
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              Elegant, rustic cakes perfect for weddings, birthdays, and special celebrations
+    <main>
+      {/* Hero */}
+      <header
+        className="mx-auto grid grid-cols-1 lg:grid-cols-2 items-center"
+        style={{ maxWidth: "72rem", padding: "8.5rem 1.5rem 3rem", gap: "3rem" }}
+      >
+        <div>
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}>
+            <Eyebrow style={{ marginBottom: "1.1rem" }}>{t("cakes_eyebrow")}</Eyebrow>
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="font-serif font-bold tracking-tight"
+            style={{ fontSize: "clamp(2.6rem, 5.5vw, 4rem)", color: "#452627", lineHeight: 1.05, marginBottom: "1.2rem" }}
+          >
+            {t("cakes_title")}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            style={{ color: "#504444", fontSize: "1.02rem", lineHeight: 1.75, marginBottom: "1.6rem", maxWidth: "30rem" }}
+          >
+            {t("cakes_desc")}
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="flex flex-wrap items-center"
+            style={{ gap: "0.6rem" }}
+          >
+            {badges.map((badge) => (
+              <span
+                key={badge}
+                className="font-semibold"
+                style={{
+                  backgroundColor: "#F5EDE8",
+                  color: "#745660",
+                  padding: "0.5rem 1.1rem",
+                  borderRadius: "9999px",
+                  fontSize: "0.78rem",
+                }}
+              >
+                {badge}
+              </span>
+            ))}
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96, y: 24 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden"
+          style={{ borderRadius: "2rem", boxShadow: "0 30px 80px rgba(69,38,39,0.16)" }}
+        >
+          <div
+            className="w-full flex flex-col items-center justify-center text-center"
+            style={{
+              aspectRatio: "1/1",
+              background: "linear-gradient(150deg, #F5EDE8 0%, #F0DBCE 55%, #EAD3C0 100%)",
+              padding: "2rem",
+            }}
+          >
+            <Cake size={110} weight="duotone" style={{ color: "#9E7C3F", marginBottom: "1.4rem" }} />
+            <p
+              className="font-serif italic font-semibold"
+              style={{ color: "#745660", fontSize: "1.05rem", maxWidth: "16rem", lineHeight: 1.5, margin: 0 }}
+            >
+              {t("cakes_badge_1")} · {t("cakes_badge_2")}
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <div className="flex items-center gap-2">
-                <Cake className="h-5 w-5 text-primary" />
-                <span className="text-sm">Custom Designs</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-primary" />
-                <span className="text-sm">48hr Notice</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
-                <span className="text-sm">6-50 Servings</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Star className="h-5 w-5 text-primary" />
-                <span className="text-sm">Premium Quality</span>
-              </div>
-            </div>
           </div>
-        </section>
+        </motion.div>
+      </header>
 
-        {/* Cake Options */}
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <Tabs defaultValue="flavors" className="w-full">
-              <TabsList className="grid w-full max-w-lg mx-auto grid-cols-3">
-                <TabsTrigger value="flavors">Flavors</TabsTrigger>
-                <TabsTrigger value="sizes">Sizes</TabsTrigger>
-                <TabsTrigger value="addons">Add-ons</TabsTrigger>
-              </TabsList>
+      <GoldRule padding="0.5rem 0 2rem" />
 
-              {/* Flavors Tab */}
-              <TabsContent value="flavors" className="mt-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {cakeTypes.map((cake, index) => (
-                    <Card key={index} className="hover:shadow-xl transition-shadow">
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <CardTitle className="text-xl">{cake.name}</CardTitle>
-                          {cake.popular && (
-                            <Badge variant="secondary">Popular</Badge>
-                          )}
-                        </div>
-                        <p className="text-lg font-semibold text-primary mt-2">{cake.price}</p>
-                      </CardHeader>
-                      <CardContent>
-                        <CardDescription>{cake.description}</CardDescription>
-                        <p className="text-sm text-muted-foreground mt-2">
-                          Serves {cake.serves}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
+      {/* Tabs */}
+      <section className="mx-auto" style={{ maxWidth: "72rem", padding: "0 1.5rem 4rem" }}>
+        <div
+          className="flex items-center justify-center mx-auto"
+          style={{
+            gap: "0.3rem",
+            backgroundColor: "#F5EDE8",
+            borderRadius: "9999px",
+            padding: "0.3rem",
+            width: "fit-content",
+            marginBottom: "2.5rem",
+          }}
+        >
+          <TabButton active={tab === "sizes"} onClick={() => setTab("sizes")}>{t("cakes_tab_sizes")}</TabButton>
+          <TabButton active={tab === "build"} onClick={() => setTab("build")}>{t("cakes_tab_build")}</TabButton>
+          <TabButton active={tab === "addons"} onClick={() => setTab("addons")}>{t("cakes_tab_addons")}</TabButton>
+        </div>
 
-              {/* Sizes Tab */}
-              <TabsContent value="sizes" className="mt-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {sizes.map((item, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-shadow">
-                      <CardHeader>
-                        <CardTitle className="text-xl">{item.size}</CardTitle>
-                        <p className="text-lg font-semibold text-primary">{item.price}</p>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground">Serves {item.serves}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              {/* Add-ons Tab */}
-              <TabsContent value="addons" className="mt-8">
-                <Card className="p-6">
-                  <h3 className="text-xl font-semibold mb-4">Available Add-ons</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    {addOns.map((addon, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <div className="h-2 w-2 bg-primary rounded-full" />
-                        <span className="text-muted-foreground">{addon}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-6">
-                    * Additional charges may apply for premium add-ons
+        {tab === "sizes" && (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5" style={{ gap: "1.2rem" }}>
+            {CAKE_SIZES.map((item, i) => (
+              <Reveal key={item.key} as="div" delay={i * 0.06}>
+                <div
+                  className="text-center h-full flex flex-col items-center justify-center"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    borderRadius: "1.5rem",
+                    padding: "2rem 1.2rem",
+                    boxShadow: "0 8px 30px rgba(69,38,39,0.07)",
+                  }}
+                >
+                  <p className="font-serif font-bold" style={{ fontSize: "1.7rem", color: "#452627", margin: "0 0 0.3rem" }}>
+                    {item.inches}&Prime;
                   </p>
-                </Card>
-              </TabsContent>
-            </Tabs>
-
-            {/* Ordering Process */}
-            <Card className="mt-12 p-8 bg-muted/30">
-              <h2 className="text-2xl md:text-3xl font-bold font-playfair text-center mb-8">
-                How to Order
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
-                    1
-                  </div>
-                  <h4 className="font-semibold mb-2">Choose</h4>
-                  <p className="text-sm text-muted-foreground">Select your flavor and size</p>
+                  <p style={{ color: "#745660", fontSize: "0.8rem", margin: "0 0 0.7rem" }}>
+                    {t("cakes_serves")} {item.servings} {t("cakes_slices")}
+                  </p>
+                  <p className="font-bold" style={{ color: "#9E7C3F", fontSize: "0.92rem", margin: 0 }}>
+                    {t("cakes_from")} {formatUSD(item.price)}
+                  </p>
                 </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
-                    2
-                  </div>
-                  <h4 className="font-semibold mb-2">Customize</h4>
-                  <p className="text-sm text-muted-foreground">Add decorations and personal touches</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
-                    3
-                  </div>
-                  <h4 className="font-semibold mb-2">Confirm</h4>
-                  <p className="text-sm text-muted-foreground">Place order 48 hours in advance</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
-                    4
-                  </div>
-                  <h4 className="font-semibold mb-2">Enjoy</h4>
-                  <p className="text-sm text-muted-foreground">Pick up or have it delivered</p>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                <Button asChild size="lg">
-                  <Link href="https://wa.me/14076164661" target="_blank" rel="noopener noreferrer">
-                    Order on WhatsApp
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline">
-                  <Link href="/contact">
-                    Get a Quote
-                  </Link>
-                </Button>
-              </div>
-            </Card>
+              </Reveal>
+            ))}
           </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+        )}
+
+        {tab === "build" && (
+          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "1.4rem" }}>
+            <Reveal as="div">
+              <div
+                className="h-full"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "1.75rem",
+                  padding: "2.2rem 2.2rem 2rem",
+                  boxShadow: "0 8px 30px rgba(69,38,39,0.07)",
+                }}
+              >
+                <h3 className="font-serif font-bold" style={{ fontSize: "1.3rem", color: "#452627", marginBottom: "0.4rem" }}>
+                  {t("cakes_massas_title")}
+                </h3>
+                <p style={{ color: "#745660", fontSize: "0.8rem", margin: "0 0 1.3rem" }}>{t("cakes_choose_1")}</p>
+                <div className="flex flex-col" style={{ gap: "0.8rem" }}>
+                  {CAKE_MASSAS.map((key) => (
+                    <div key={key} className="flex items-center" style={{ gap: "0.55rem" }}>
+                      <Diamond size={9} weight="fill" style={{ color: "#C9A96E", flexShrink: 0 }} />
+                      <span style={{ color: "#504444", fontSize: "0.92rem" }}>{t(`cakes_${key}`)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+            <Reveal as="div" delay={0.1}>
+              <div
+                className="h-full"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "1.75rem",
+                  padding: "2.2rem 2.2rem 2rem",
+                  boxShadow: "0 8px 30px rgba(69,38,39,0.07)",
+                }}
+              >
+                <h3 className="font-serif font-bold" style={{ fontSize: "1.3rem", color: "#452627", marginBottom: "0.4rem" }}>
+                  {t("cakes_recheios_title")}
+                </h3>
+                <p style={{ color: "#745660", fontSize: "0.8rem", margin: "0 0 1.3rem" }}>{t("cakes_choose_2")}</p>
+                <div className="flex flex-col" style={{ gap: "0.8rem" }}>
+                  {CAKE_RECHEIOS.map((key) => (
+                    <div key={key} className="flex items-center" style={{ gap: "0.55rem" }}>
+                      <Diamond size={9} weight="fill" style={{ color: "#C9A96E", flexShrink: 0 }} />
+                      <span style={{ color: "#504444", fontSize: "0.92rem" }}>{t(`cakes_${key}`)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        )}
+
+        {tab === "addons" && (
+          <Reveal as="div">
+            <div
+              style={{
+                backgroundColor: "#FFFFFF",
+                borderRadius: "1.75rem",
+                padding: "2.5rem 2.5rem 2rem",
+                boxShadow: "0 8px 30px rgba(69,38,39,0.07)",
+              }}
+            >
+              <h3 className="font-serif font-bold" style={{ fontSize: "1.35rem", color: "#452627", marginBottom: "0.4rem" }}>
+                {t("cakes_addons_title")}
+              </h3>
+              <p style={{ color: "#745660", fontSize: "0.8rem", margin: "0 0 1.4rem" }}>{t("cakes_choose_1")}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "0.9rem" }}>
+                {CAKE_OPCIONAIS.map(({ key, extra }) => (
+                  <div key={key} className="flex items-center" style={{ gap: "0.55rem" }}>
+                    <Diamond size={9} weight="fill" style={{ color: "#C9A96E", flexShrink: 0 }} />
+                    <span style={{ color: "#504444", fontSize: "0.88rem" }}>
+                      {t(`cakes_${key}`)}
+                      {extra ? (
+                        <span className="font-bold" style={{ color: "#9E7C3F" }}> (+{formatUSD(extra)})</span>
+                      ) : null}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p style={{ color: "#745660", fontSize: "0.75rem", margin: "1.6rem 0 0" }}>{t("cakes_addons_note")}</p>
+            </div>
+          </Reveal>
+        )}
+      </section>
+
+      {/* How to order + CTA */}
+      <Reveal className="mx-auto" style={{ maxWidth: "60rem", padding: "0 1.5rem 5rem" }}>
+        <div
+          className="text-center"
+          style={{ backgroundColor: "#452627", borderRadius: "2rem", padding: "3rem 2rem" }}
+        >
+          <h2 className="font-serif font-bold text-shimmer" style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", marginBottom: "2rem" }}>
+            {t("home_steps_title")}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: "1.6rem", marginBottom: "2.4rem" }}>
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="flex flex-col items-center">
+                <span
+                  className="font-serif font-bold flex items-center justify-center"
+                  style={{
+                    width: "2.8rem",
+                    height: "2.8rem",
+                    borderRadius: "9999px",
+                    background: "linear-gradient(135deg, #C9A96E, #9E7C3F)",
+                    color: "#FFFFFF",
+                    fontSize: "1.1rem",
+                    marginBottom: "0.8rem",
+                  }}
+                >
+                  {n}
+                </span>
+                <h4 className="font-serif font-bold" style={{ color: "#FFF8F4", fontSize: "1.02rem", marginBottom: "0.3rem" }}>
+                  {t(`home_step_${n}_title`)}
+                </h4>
+                <p style={{ color: "rgba(255,248,244,0.7)", fontSize: "0.82rem", lineHeight: 1.6, margin: 0, maxWidth: "14rem" }}>
+                  {t(`home_step_${n}_desc`)}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center justify-center" style={{ gap: "0.9rem" }}>
+            <a
+              href={waLink(t("cakes_wa_message"))}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center font-bold transition-transform duration-200 hover:scale-[1.03]"
+              style={{
+                gap: "0.55rem",
+                background: "linear-gradient(135deg, #C9A96E, #9E7C3F)",
+                color: "#FFFFFF",
+                borderRadius: "9999px",
+                padding: "0.95rem 1.7rem",
+                fontSize: "0.95rem",
+                boxShadow: "0 10px 30px rgba(201,169,110,0.35)",
+              }}
+            >
+              <WhatsappLogo size={20} weight="fill" />
+              {t("home_cta_order")}
+              <ArrowRight size={15} weight="bold" />
+            </a>
+            <Link
+              href="/contact"
+              className="font-semibold transition-opacity hover:opacity-75"
+              style={{
+                color: "#FFF8F4",
+                borderRadius: "9999px",
+                padding: "0.95rem 1.6rem",
+                fontSize: "0.92rem",
+                backgroundColor: "rgba(255,248,244,0.1)",
+              }}
+            >
+              {t("cakes_quote")}
+            </Link>
+          </div>
+        </div>
+      </Reveal>
+    </main>
   );
 }

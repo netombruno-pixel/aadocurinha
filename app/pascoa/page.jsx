@@ -39,7 +39,7 @@ const C = {
   onDark: "#FFF8F4",
 };
 
-const FONT_SERIF = "'Noto Serif', Georgia, serif";
+const FONT_SERIF = "var(--font-playfair), Georgia, serif";
 const FONT_SANS = "'Manrope', system-ui, sans-serif";
 
 /* ------------------------------------------------------------------ */
@@ -261,8 +261,19 @@ function PascoaV2Content() {
           boxShadow: scrolled ? "0 1px 0 rgba(201,169,110,0.15)" : "none",
         }}
       >
-        <img src="/logo.png" alt="A Docurinha" style={{ height: scrolled ? "30px" : "36px", width: "auto", transition: "height 0.3s" }} />
-        <LanguageToggle />
+        <a href="/" aria-label="A Doçurinha — início" style={{ display: "flex", alignItems: "center" }}>
+          <img src="/logo.png" alt="A Doçurinha" style={{ height: scrolled ? "30px" : "36px", width: "auto", transition: "height 0.3s" }} />
+        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <a
+            href="/"
+            className="font-semibold"
+            style={{ color: "#745660", fontSize: "0.8rem", textDecoration: "none" }}
+          >
+            ← {t("nav_home")}
+          </a>
+          <LanguageToggle />
+        </div>
       </motion.nav>
 
       {/* ======================================== */}
