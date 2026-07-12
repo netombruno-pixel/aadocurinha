@@ -41,7 +41,7 @@ export default function SiteNav() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        backgroundColor: scrolled ? "rgba(255,248,244,0.92)" : "rgba(255,248,244,0.65)",
+        backgroundColor: scrolled ? "rgba(253,245,245,0.92)" : "rgba(253,245,245,0.65)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         boxShadow: scrolled ? "0 1px 0 rgba(201,169,110,0.18), 0 8px 30px rgba(69,38,39,0.05)" : "none",
@@ -135,7 +135,7 @@ export default function SiteNav() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="lg:hidden overflow-hidden"
             style={{
-              backgroundColor: "rgba(255,248,244,0.97)",
+              backgroundColor: "rgba(253,245,245,0.97)",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)",
               boxShadow: "0 20px 40px rgba(69,38,39,0.08)",

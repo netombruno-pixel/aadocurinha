@@ -17,8 +17,8 @@
   --color-plum: #452627;           /* Deep Cocoa - primary text */
   --color-plum-light: #745660;     /* Muted Rose - secondary text */
   --color-plum-muted: #504444;     /* Soft cocoa - body text */
-  --color-soft-pink: #FFF8F4;      /* Warm Cream - backgrounds */
-  --color-nude: #F5ECE9;           /* surface-container */
+  --color-soft-pink: #FDF5F5;      /* Warm Cream - backgrounds */
+  --color-nude: #F8E8E9;           /* surface-container */
   --color-gold: #C9A96E;           /* Champagne Gold Accent */
   --color-gold-light: #E8D5A3;     /* Gold highlight */
   --color-gold-dark: #9E7C3F;      /* Gold shade */
@@ -259,9 +259,9 @@
   --color-copper: #C08552;
   --color-blush: #F7E0D8;
   --color-rose: #F0B5C0;
-  --color-soft-pink: #FFF8F4;
-  --color-surface: #FFF8F4;
-  --color-nude: #F5ECE9;
+  --color-soft-pink: #FDF5F5;
+  --color-surface: #FDF5F5;
+  --color-nude: #F8E8E9;
   --color-cream: #EFE6E3;
   --color-dark-cocoa: #1A1212;
   --font-heading: var(--font-playfair);

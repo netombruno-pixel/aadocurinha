@@ -17,7 +17,7 @@ export default function SiteFooter() {
   const { t } = useLanguage();
 
   return (
-    <footer style={{ backgroundColor: "#F5ECE9" }}>
+    <footer style={{ backgroundColor: "#F8E8E9" }}>
       <div className="mx-auto" style={{ maxWidth: "72rem", padding: "4rem 1.5rem 2rem" }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style={{ gap: "2.5rem" }}>
           {/* Brand */}

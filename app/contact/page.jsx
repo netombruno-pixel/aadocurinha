@@ -139,7 +139,7 @@ function ContactContent() {
         <Reveal as="div" className="lg:col-span-3">
           <div
             style={{
-              backgroundColor: "#F5EDE8",
+              backgroundColor: "#F9E9EB",
               borderRadius: "1.75rem",
               padding: "2.2rem 2rem",
               boxShadow: "0 10px 40px rgba(69,38,39,0.06)",
@@ -188,7 +188,7 @@ function ContactContent() {
                         padding: "0.6rem 1.25rem",
                         fontSize: "0.85rem",
                         backgroundColor: formData.orderType === type.value ? "#452627" : "#FFFFFF",
-                        color: formData.orderType === type.value ? "#FFF8F4" : "#745660",
+                        color: formData.orderType === type.value ? "#FDF5F5" : "#745660",
                         boxShadow: "0 2px 8px rgba(69,38,39,0.05)",
                       }}
                     >

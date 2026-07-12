@@ -42,7 +42,7 @@ function FlavorCard({ flavor, index }) {
           ) : (
             <div
               className="w-full h-full flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #FBEFF5, #F0DBCE)" }}
+              style={{ background: "linear-gradient(135deg, #FBEFF5, #F3D9DC)" }}
             >
               <Sparkle size={44} weight="duotone" style={{ color: "#C9A96E" }} />
             </div>
@@ -56,7 +56,7 @@ function FlavorCard({ flavor, index }) {
                 gap: "0.3rem",
                 backgroundColor: "rgba(69,38,39,0.85)",
                 backdropFilter: "blur(8px)",
-                color: "#FFF8F4",
+                color: "#FDF5F5",
                 padding: "0.28rem 0.65rem",
                 borderRadius: "9999px",
                 fontSize: "0.55rem",
@@ -185,7 +185,7 @@ function BrigadeirosContent() {
               key={badge}
               className="font-semibold"
               style={{
-                backgroundColor: "#F5EDE8",
+                backgroundColor: "#F9E9EB",
                 color: "#745660",
                 padding: "0.5rem 1.1rem",
                 borderRadius: "9999px",
@@ -232,7 +232,7 @@ function BrigadeirosContent() {
             {orderNotes.map((note) => (
               <li key={note} className="flex items-center text-center" style={{ gap: "0.55rem" }}>
                 <Diamond size={9} weight="fill" style={{ color: "#C9A96E", flexShrink: 0 }} />
-                <span style={{ color: "rgba(255,248,244,0.85)", fontSize: "0.9rem" }}>{note}</span>
+                <span style={{ color: "rgba(253,245,245,0.85)", fontSize: "0.9rem" }}>{note}</span>
               </li>
             ))}
           </ul>
@@ -260,11 +260,11 @@ function BrigadeirosContent() {
               href="/contact"
               className="font-semibold transition-opacity hover:opacity-75"
               style={{
-                color: "#FFF8F4",
+                color: "#FDF5F5",
                 borderRadius: "9999px",
                 padding: "0.95rem 1.6rem",
                 fontSize: "0.92rem",
-                backgroundColor: "rgba(255,248,244,0.1)",
+                backgroundColor: "rgba(253,245,245,0.1)",
               }}
             >
               {t("nav_contact")}

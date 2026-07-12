@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { WhatsappLogo, ArrowRight, Diamond, Cake } from "@phosphor-icons/react";
+import { WhatsappLogo, ArrowRight, Diamond } from "@phosphor-icons/react";
 import PageShell, { Reveal, Eyebrow, GoldRule } from "@/components/site/PageShell";
 import { useLanguage } from "@/components/pascoa/LanguageContext";
 import { waLink, formatUSD, CAKE_SIZES, CAKE_MASSAS, CAKE_RECHEIOS, CAKE_OPCIONAIS } from "@/lib/site";
@@ -20,7 +20,7 @@ function TabButton({ active, onClick, children }) {
         borderRadius: "9999px",
         border: "none",
         backgroundColor: active ? "#452627" : "transparent",
-        color: active ? "#FFF8F4" : "#745660",
+        color: active ? "#FDF5F5" : "#745660",
       }}
     >
       {children}
@@ -82,7 +82,7 @@ function NakedCakesContent() {
                 key={badge}
                 className="font-semibold"
                 style={{
-                  backgroundColor: "#F5EDE8",
+                  backgroundColor: "#F9E9EB",
                   color: "#745660",
                   padding: "0.5rem 1.1rem",
                   borderRadius: "9999px",
@@ -102,22 +102,12 @@ function NakedCakesContent() {
           className="overflow-hidden"
           style={{ borderRadius: "2rem", boxShadow: "0 30px 80px rgba(69,38,39,0.16)" }}
         >
-          <div
-            className="w-full flex flex-col items-center justify-center text-center"
-            style={{
-              aspectRatio: "1/1",
-              background: "linear-gradient(150deg, #F5EDE8 0%, #F0DBCE 55%, #EAD3C0 100%)",
-              padding: "2rem",
-            }}
-          >
-            <Cake size={110} weight="duotone" style={{ color: "#9E7C3F", marginBottom: "1.4rem" }} />
-            <p
-              className="font-serif italic font-semibold"
-              style={{ color: "#745660", fontSize: "1.05rem", maxWidth: "16rem", lineHeight: 1.5, margin: 0 }}
-            >
-              {t("cakes_badge_1")} · {t("cakes_badge_2")}
-            </p>
-          </div>
+          <img
+            src="/gallery/naked-cake-pink.jpg"
+            alt="Naked cake rosa decorado com brigadeiros"
+            className="w-full h-auto object-cover"
+            style={{ display: "block", aspectRatio: "4/5" }}
+          />
         </motion.div>
       </header>
 
@@ -129,7 +119,7 @@ function NakedCakesContent() {
           className="flex items-center justify-center mx-auto"
           style={{
             gap: "0.3rem",
-            backgroundColor: "#F5EDE8",
+            backgroundColor: "#F9E9EB",
             borderRadius: "9999px",
             padding: "0.3rem",
             width: "fit-content",
@@ -281,10 +271,10 @@ function NakedCakesContent() {
                 >
                   {n}
                 </span>
-                <h4 className="font-serif font-bold" style={{ color: "#FFF8F4", fontSize: "1.02rem", marginBottom: "0.3rem" }}>
+                <h4 className="font-serif font-bold" style={{ color: "#FDF5F5", fontSize: "1.02rem", marginBottom: "0.3rem" }}>
                   {t(`home_step_${n}_title`)}
                 </h4>
-                <p style={{ color: "rgba(255,248,244,0.7)", fontSize: "0.82rem", lineHeight: 1.6, margin: 0, maxWidth: "14rem" }}>
+                <p style={{ color: "rgba(253,245,245,0.7)", fontSize: "0.82rem", lineHeight: 1.6, margin: 0, maxWidth: "14rem" }}>
                   {t(`home_step_${n}_desc`)}
                 </p>
               </div>
@@ -314,11 +304,11 @@ function NakedCakesContent() {
               href="/contact"
               className="font-semibold transition-opacity hover:opacity-75"
               style={{
-                color: "#FFF8F4",
+                color: "#FDF5F5",
                 borderRadius: "9999px",
                 padding: "0.95rem 1.6rem",
                 fontSize: "0.92rem",
-                backgroundColor: "rgba(255,248,244,0.1)",
+                backgroundColor: "rgba(253,245,245,0.1)",
               }}
             >
               {t("cakes_quote")}

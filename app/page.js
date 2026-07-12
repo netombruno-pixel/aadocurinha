@@ -102,7 +102,7 @@ function Hero() {
           className="flex items-center"
           style={{
             gap: "0.5rem",
-            backgroundColor: "#F5EDE8",
+            backgroundColor: "#F9E9EB",
             padding: "0.65rem 1.2rem",
             borderRadius: "9999px",
             marginTop: "2.2rem",
@@ -124,20 +124,12 @@ function Hero() {
         className="relative"
       >
         <div className="relative overflow-hidden" style={{ borderRadius: "2rem", boxShadow: "0 30px 80px rgba(69,38,39,0.18)" }}>
-          <div className="grid grid-cols-2" style={{ gap: "0.4rem", aspectRatio: "1/1" }}>
-            {["brigadeiro", "ninho-nutella", "morango-ninho", "oreo"].map((slug) => {
-              const flavor = BRIGADEIRO_FLAVORS.find((f) => f.slug === slug);
-              return (
-                <img
-                  key={slug}
-                  src={flavorImage(flavor)}
-                  alt={flavor.name}
-                  className="w-full h-full object-cover"
-                  style={{ display: "block" }}
-                />
-              );
-            })}
-          </div>
+          <img
+            src="/gallery/spread-gold.jpg"
+            alt="Brigadeiros gourmet dourados e de chocolate"
+            className="w-full h-full object-cover"
+            style={{ display: "block", aspectRatio: "1/1" }}
+          />
           {/* Glass caption */}
           <div
             className="absolute"
@@ -182,12 +174,12 @@ function Hero() {
             left: "-2.5rem",
             borderRadius: "1.5rem",
             boxShadow: "0 20px 50px rgba(69,38,39,0.22)",
-            border: "5px solid #FFF8F4",
+            border: "5px solid #FDF5F5",
           }}
         >
           <img
-            src="/flavors/brigadeiro-dourado.png"
-            alt="Brigadeiro Dourado com folha de ouro"
+            src="/gallery/gift-boxes.jpg"
+            alt="Caixas de presente de brigadeiros"
             className="w-full h-auto"
             style={{ display: "block", aspectRatio: "4/5", objectFit: "cover" }}
           />
@@ -209,11 +201,11 @@ function FlavorMarquee() {
       {/* Edge fades */}
       <div
         className="absolute inset-y-0 left-0 z-10 pointer-events-none"
-        style={{ width: "8rem", background: "linear-gradient(90deg, #FFF8F4, transparent)" }}
+        style={{ width: "8rem", background: "linear-gradient(90deg, #FDF5F5, transparent)" }}
       />
       <div
         className="absolute inset-y-0 right-0 z-10 pointer-events-none"
-        style={{ width: "8rem", background: "linear-gradient(270deg, #FFF8F4, transparent)" }}
+        style={{ width: "8rem", background: "linear-gradient(270deg, #FDF5F5, transparent)" }}
       />
       <div className="marquee-track" style={{ gap: "1.2rem" }}>
         {items.map((flavor, i) => (
@@ -259,14 +251,14 @@ function Collections() {
   const cards = [
     {
       href: "/brigadeiros",
-      img: "/flavors/coco-colorido.png",
+      img: "/gallery/spread-maracuja.jpg",
       title: t("col_brig_title"),
       desc: t("col_brig_desc"),
       cta: t("col_brig_cta"),
     },
     {
       href: "/naked-cakes",
-      img: null,
+      img: "/gallery/naked-cake-chocolate.jpg",
       title: t("col_cake_title"),
       desc: t("col_cake_desc"),
       cta: t("col_cake_cta"),
@@ -308,7 +300,7 @@ function Collections() {
                   ) : (
                     <div
                       className="w-full h-full flex items-center justify-center transition-transform duration-700 group-hover:scale-[1.05]"
-                      style={{ background: "linear-gradient(135deg, #F5EDE8, #F0DBCE)" }}
+                      style={{ background: "linear-gradient(135deg, #F9E9EB, #F3D9DC)" }}
                     >
                       <Cake size={72} weight="duotone" style={{ color: "#9E7C3F" }} />
                     </div>
@@ -358,8 +350,8 @@ function Story() {
       >
         <div className="overflow-hidden h-full" style={{ minHeight: "320px" }}>
           <img
-            src="/flavors/ferrero.png"
-            alt="Brigadeiro Ferrero Rocher"
+            src="/gallery/spread-classicos.jpg"
+            alt="Brigadeiros clássicos artesanais"
             loading="lazy"
             className="w-full h-full object-cover"
           />
@@ -368,11 +360,11 @@ function Story() {
           <Eyebrow style={{ marginBottom: "1rem" }}>{t("home_story_eyebrow")}</Eyebrow>
           <h2
             className="font-serif font-bold tracking-tight"
-            style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", color: "#FFF8F4", marginBottom: "1.2rem", lineHeight: 1.15 }}
+            style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", color: "#FDF5F5", marginBottom: "1.2rem", lineHeight: 1.15 }}
           >
             {t("home_story_title")}
           </h2>
-          <p style={{ color: "rgba(255,248,244,0.82)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2.2rem" }}>
+          <p style={{ color: "rgba(253,245,245,0.82)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2.2rem" }}>
             {t("home_story_text")}
           </p>
 
@@ -382,7 +374,7 @@ function Story() {
                 <p className="font-serif font-bold text-shimmer" style={{ fontSize: "1.35rem", margin: 0, lineHeight: 1.2 }}>
                   {s.num}
                 </p>
-                <p style={{ color: "rgba(255,248,244,0.65)", fontSize: "0.72rem", lineHeight: 1.4, margin: "0.3rem 0 0" }}>
+                <p style={{ color: "rgba(253,245,245,0.65)", fontSize: "0.72rem", lineHeight: 1.4, margin: "0.3rem 0 0" }}>
                   {s.label}
                 </p>
               </div>
@@ -457,7 +449,7 @@ function CTABand() {
       <div
         className="text-center flex flex-col items-center"
         style={{
-          backgroundColor: "#F5EDE8",
+          backgroundColor: "#F9E9EB",
           borderRadius: "2rem",
           padding: "3.5rem 2rem",
           boxShadow: "0 10px 40px rgba(69,38,39,0.06)",

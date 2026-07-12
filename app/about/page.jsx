@@ -4,9 +4,7 @@ import { motion } from "framer-motion";
 import { WhatsappLogo, Medal, Clock, Heart, Gift } from "@phosphor-icons/react";
 import PageShell, { Eyebrow, GoldRule, Reveal } from "@/components/site/PageShell";
 import { useLanguage } from "@/components/pascoa/LanguageContext";
-import { waLink, BRIGADEIRO_FLAVORS, flavorImage } from "@/lib/site";
-
-const PHOTO_SLUGS = ["brigadeiro", "morango-ninho", "ferrero", "oreo", "limao-siciliano", "pacoca"];
+import { waLink } from "@/lib/site";
 
 export default function AboutPage() {
   return (
@@ -25,8 +23,6 @@ function AboutContent() {
     { icon: Heart, title: t("about_value_3_title"), desc: t("about_value_3_desc") },
     { icon: Gift, title: t("about_value_4_title"), desc: t("about_value_4_desc") },
   ];
-
-  const photos = PHOTO_SLUGS.map((slug) => BRIGADEIRO_FLAVORS.find((f) => f.slug === slug)).filter(Boolean);
 
   return (
     <main>
@@ -64,31 +60,27 @@ function AboutContent() {
           className="grid grid-cols-1 lg:grid-cols-2 items-center overflow-hidden"
           style={{ backgroundColor: "#452627", borderRadius: "2rem" }}
         >
-          {/* Photo mosaic */}
-          <div className="grid grid-cols-3" style={{ gap: "0.5rem", padding: "0.5rem", alignSelf: "stretch" }}>
-            {photos.map((flavor) => (
-              <div key={flavor.slug} className="overflow-hidden" style={{ borderRadius: "1rem", aspectRatio: "1" }}>
-                <img
-                  src={flavorImage(flavor)}
-                  alt={flavor.name}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+          {/* Brenda */}
+          <div className="overflow-hidden h-full" style={{ minHeight: "360px" }}>
+            <img
+              src="/gallery/brenda.jpg"
+              alt="Brenda, fundadora da A Doçurinha"
+              loading="lazy"
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <div style={{ padding: "3rem 2.5rem" }}>
             <h2
               className="font-serif font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.4rem)", color: "#FFF8F4", marginBottom: "1.2rem", lineHeight: 1.15 }}
+              style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.4rem)", color: "#FDF5F5", marginBottom: "1.2rem", lineHeight: 1.15 }}
             >
               {t("about_story_title")}
             </h2>
-            <p style={{ color: "rgba(255,248,244,0.82)", fontSize: "0.97rem", lineHeight: 1.85, marginBottom: "1.1rem" }}>
+            <p style={{ color: "rgba(253,245,245,0.82)", fontSize: "0.97rem", lineHeight: 1.85, marginBottom: "1.1rem" }}>
               {t("about_story_p1")}
             </p>
-            <p style={{ color: "rgba(255,248,244,0.82)", fontSize: "0.97rem", lineHeight: 1.85, margin: 0 }}>
+            <p style={{ color: "rgba(253,245,245,0.82)", fontSize: "0.97rem", lineHeight: 1.85, margin: 0 }}>
               {t("about_story_p2")}
             </p>
           </div>
