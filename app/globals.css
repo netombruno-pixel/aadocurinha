@@ -1,13 +1,10 @@
+@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @source ".";
 @source "../components";
 @source "../lib";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /* ============================================
    A DOCURINHA - DESIGN SYSTEM
@@ -16,23 +13,30 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Brand Colors - Inspired by DESIGN.md */
+  /* Brand Colors — Cocoa & Blush palette, champagne gold accents */
   --color-plum: #452627;           /* Deep Cocoa - primary text */
-  --color-soft-pink: #FFF8F6;      /* Warm Cream - backgrounds */
+  --color-plum-light: #745660;     /* Muted Rose - secondary text */
+  --color-plum-muted: #504444;     /* Soft cocoa - body text */
+  --color-soft-pink: #FFF8F4;      /* Warm Cream - backgrounds */
   --color-nude: #F5ECE9;           /* surface-container */
-  --color-gold: #735C00;           /* Gold Accent */
+  --color-gold: #C9A96E;           /* Champagne Gold Accent */
+  --color-gold-light: #E8D5A3;     /* Gold highlight */
+  --color-gold-dark: #9E7C3F;      /* Gold shade */
+  --color-copper: #C08552;         /* Logo rose-gold copper */
+  --color-blush: #F7E0D8;          /* Logo blush splash */
+  --color-rose: #F0B5C0;           /* Blush rose */
   --color-warm-white: #FFFFFF;     /* surface-container-lowest */
   --color-cream: #EFE6E3;          /* surface-container-high */
-  --color-dark-cocoa: #1A1212;       /* Dark anchor - hero, overlays */
+  --color-dark-cocoa: #1A1212;     /* Dark anchor - hero, overlays */
 
   /* Semantic Colors */
   --color-primary: var(--color-plum);
   --color-accent: var(--color-gold);
-  --color-background: var(--color-warm-white);
+  --color-background: var(--color-soft-pink);
   --color-surface: var(--color-soft-pink);
 
   /* Typography */
-  --font-serif: var(--font-noto);
+  --font-serif: var(--font-playfair);
   --font-sans: var(--font-manrope);
 
   /* Spacing Scale */
@@ -247,14 +251,21 @@
 
 @theme inline {
   --color-plum: #452627;
-  --color-gold: #735C00;
-  --color-soft-pink: #FFF8F6;
-  --color-surface: #FFF8F6;
+  --color-plum-light: #745660;
+  --color-plum-muted: #504444;
+  --color-gold: #C9A96E;
+  --color-gold-light: #E8D5A3;
+  --color-gold-dark: #9E7C3F;
+  --color-copper: #C08552;
+  --color-blush: #F7E0D8;
+  --color-rose: #F0B5C0;
+  --color-soft-pink: #FFF8F4;
+  --color-surface: #FFF8F4;
   --color-nude: #F5ECE9;
   --color-cream: #EFE6E3;
   --color-dark-cocoa: #1A1212;
-  --font-heading: var(--font-serif);
-  --font-serif: var(--font-serif);
+  --font-heading: var(--font-playfair);
+  --font-serif: var(--font-playfair);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -340,10 +351,45 @@
 
 @layer utilities {
   .font-noto {
-    font-family: var(--font-noto);
+    font-family: var(--font-playfair);
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair);
   }
 
   .font-manrope {
     font-family: var(--font-manrope);
   }
+
+  /* Champagne gold shimmer text */
+  .text-shimmer {
+    background: linear-gradient(105deg, #C9A96E 0%, #E8D5A3 40%, #C9A96E 50%, #E8D5A3 60%, #C9A96E 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Infinite horizontal marquee */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 200% center; }
+  50% { background-position: 0% center; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }

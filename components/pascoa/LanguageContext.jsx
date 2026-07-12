@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 import { translations } from "@/lib/translations";
+import { siteTranslations } from "@/lib/site-translations";
 
 const LanguageContext = createContext(null);
 
@@ -29,7 +30,13 @@ export function LanguageProvider({ children }) {
 
   const t = useCallback(
     (key) => {
-      return translations[lang]?.[key] ?? translations.pt?.[key] ?? key;
+      return (
+        translations[lang]?.[key] ??
+        siteTranslations[lang]?.[key] ??
+        translations.pt?.[key] ??
+        siteTranslations.pt?.[key] ??
+        key
+      );
     },
     [lang]
   );
