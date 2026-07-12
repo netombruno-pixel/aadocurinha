@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { href: "/brigadeiros", key: "nav_brigadeiros" },
   { href: "/naked-cakes", key: "nav_cakes" },
   { href: "/pascoa", key: "nav_pascoa" },
+  { href: "/about", key: "nav_about" },
   { href: "/contact", key: "nav_contact" },
 ];
 

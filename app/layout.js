@@ -1,5 +1,6 @@
 import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
+import { WHATSAPP_NUMBER, INSTAGRAM_URL, EMAIL } from "@/lib/site";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -27,7 +28,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/og-pascoa.jpg",
+        url: "/og-default.jpg",
         width: 1200,
         height: 630,
         alt: "A Doçurinha — doces brasileiros artesanais",
@@ -36,12 +37,54 @@ export const metadata = {
   },
 };
 
+const businessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  name: "A Doçurinha",
+  description:
+    "Brigadeiros gourmet, naked cakes e doces sazonais feitos à mão com chocolate belga Callebaut em Windermere, FL.",
+  url: "https://www.adocurinha.com",
+  telephone: `+${WHATSAPP_NUMBER}`,
+  email: EMAIL,
+  image: "https://www.adocurinha.com/og-default.jpg",
+  logo: "https://www.adocurinha.com/logo.png",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Windermere",
+    addressRegion: "FL",
+    addressCountry: "US",
+  },
+  servesCuisine: "Brazilian",
+  priceRange: "$$",
+  currenciesAccepted: "USD",
+  paymentAccepted: "Zelle, Venmo, Cash",
+  sameAs: [INSTAGRAM_URL],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "10:00",
+      closes: "16:00",
+    },
+  ],
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="pt" className={`${playfair.variable} ${manrope.variable}`}>
       <head>
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
+        />
       </head>
       <body className={manrope.className}>
         {children}
